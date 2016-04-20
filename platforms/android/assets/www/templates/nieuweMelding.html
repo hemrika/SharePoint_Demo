@@ -1,0 +1,55 @@
+<ion-view style="" id="Meldingen" title="Meldingen">
+    <ion-content class="has-header" padding="true">
+        <form style="" class="list">
+          <!--
+          <ion-list>
+              <ion-item ng-repeat="Field in Web.List.Item.Fields">
+                  <div data-ng-include="'lib/SharePoint/components/Office-UI-Fabric.htm'"></div>
+              </ion-item>
+          </ion-list>
+          -->
+            <label style="" name="soort" class="item item-select">
+                <span class="input-label">Soort</span>
+                <select>
+                    <option>Schaderegistratie</option>
+                    <option>Verbetervoorstel</option>
+                    <option>Compliment</option>
+                </select>
+            </label>
+            <div style="width: 285px; height: 19px;" class="spacer"></div>
+            <label style="" name="urgentie" class="item item-select">
+                <span class="input-label">Urgentie</span>
+                <select>
+                    <option>Hoog</option>
+                    <option>Middel</option>
+                    <option>Laag</option>
+                </select>
+            </label>
+            <div style="width: 285px; height: 19px;" class="spacer"></div>
+            <label style="" name="datum" class="item item-input">
+                <span class="input-label">Datum</span>
+                <input placeholder="" type="date">
+            </label>
+            <div style="width: 285px; height: 19px;" class="spacer"></div>
+            <label style="" name="Titel" class="item item-input">
+                <span class="input-label">Onderwerp</span>
+                <input placeholder="" type="text">
+            </label>
+            <div style="width: 285px; height: 19px;" class="spacer"></div>
+            <label style="" name="Situatie" class="item item-input">
+                <span class="input-label">Situatie</span><textarea placeholder="Geef een omschrijving van de situatie "> situatie</textarea>
+            </label>
+            <div style="width: 285px; height: 19px;" class="spacer"></div>
+            <label style="" name="Oplossing " class="item item-input">
+                <span class="input-label">Oplossing</span><textarea placeholder="Geef een mogelijke oplossing van de situatie "> oplossing</textarea>
+            </label>
+            <div style="width: 285px; height: 19px;" class="spacer"></div>
+            <label style="" name="Locatie" class="item item-input">
+                <span class="input-label">Locatie</span>
+                <input placeholder="" type="text">
+            </label>
+            <div style="width: 285px; height: 19px;" class="spacer"></div>
+            <a class="button button-energized  button-block button-outline icon-right ion-alert-circled" id="nieuweMelding-button9" ui-sref="melding">Melden</a>
+        </form>
+    </ion-content>
+</ion-view>

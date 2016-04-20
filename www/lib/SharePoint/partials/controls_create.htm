@@ -1,0 +1,105 @@
+<div data-ng-switch='Field.FieldTypeKind' ng-hide="Field.Hidden">
+    <!-- Integer -->
+    <span data-ng-switch-when='1'>
+        <div class="ms-TextField">
+            <label class="ms-Label">{{Field.Title}}</label>
+            <input class="ms-TextField-field" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" type="number" >
+            <span class="ms-TextField-description">{{Field.Description}}</span>
+        </div>
+    </span>
+    <!-- Text -->
+    <span data-ng-switch-when='2'>
+        <div class="ms-TextField">
+            <label class="ms-Label">{{Field.Title}}</label>
+            <input class="ms-TextField-field" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" type="text" >
+            <span class="ms-TextField-description">{{Field.Description}}</span>
+        </div>
+    </span>
+    <!-- Note -->
+    <span data-ng-switch-when='3'>
+        <div class="ms-TextField ms-TextField--multiline">
+            <label class="ms-Label">{{Field.Title}}</label>
+            <textarea class="ms-TextField-field" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value"></textarea>
+        </div>
+
+    </span>
+    <!-- DateTime -->
+    <span data-ng-switch-when='4'>
+        <div>{{Field.Title}}</div>
+            <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" type='text' />
+    </span>
+    <!-- Counter -->
+    <span data-ng-switch-when='5'>
+        <div>{{Field.Title}}</div>
+            <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" type='text' />
+    </span>
+    <!-- Choice -->
+    <span data-ng-switch-when='6'>
+        <div class="ms-Dropdown" tabindex="0">
+            <label class="ms-Label">{{Field.Title}}</label>
+            <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
+            <select class="ms-Dropdown-select" ng-options="label for result in Field.Choices.results" ng-model="Field.Value"></select>
+        </div>
+    </span>
+    <!-- Lookup -->
+    <span data-ng-switch-when='7'>
+        <div>{{Field.Title}}</div>
+        <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" />
+    </span>
+    <!-- Boolean -->
+    <span data-ng-switch-when='8'>
+        <div class="ms-Toggle">
+            <span class="ms-Toggle-description">{{Field.Title}}</span>
+            <input type="checkbox" id="{{Field.InternalName}}" class="ms-Toggle-input" />
+            <label for="{{Field.InternalName}}" class="ms-Toggle-field">
+                <span class="ms-Label ms-Label--off"></span>
+                <span class="ms-Label ms-Label--on"></span>
+            </label>
+        </div>
+    </span>
+    <!-- Number -->
+    <span data-ng-switch-when='9'>
+        <div>{{Field.Title}}</div>
+        <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" />
+    </span>
+    <!-- Currency -->
+    <span data-ng-switch-when='10'>
+        <div>{{Field.Title}}</div>
+        <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" />
+    </span>
+    <!-- URL -->
+    <span data-ng-switch-when='11'>
+        <div>{{Field.Title}}</div>
+        <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" />
+    </span>
+    <!-- Computed -->
+    <span data-ng-switch-when='12'>
+        <div>{{Field.Title}}</div>
+        <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" />
+    </span>
+    <!-- Guid -->
+    <span data-ng-switch-when='14'>
+        <div>{{Field.Title}}</div>
+        <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" />
+    </span>
+    <!-- MultiChoice -->
+    <span data-ng-switch-when='15'>
+        <div>{{Field.Title}}</div>
+        <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" />
+    </span>
+    <!-- File -->
+    <span data-ng-switch-when='18'>
+        <div>{{Field.Title}}</div>
+        <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" />
+    </span>
+    <!-- Attachments -->
+    <span data-ng-switch-when='19'>
+        <div>{{Field.Title}}</div>
+        <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" />
+    </span>
+    <!-- User -->
+    <span data-ng-switch-when='20'>
+        <div>{{Field.Title}}</div>
+        <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" />
+    </span>
+</div>
