@@ -781,20 +781,57 @@
 
             var FormFields = [];
 
+            //var ViewFields = [];
+
             try {
+                ngSecurity.CurrentList.DefaultView().then(function(View){
+
+                    console.log(View);
+                    ngSecurity.CurrentList.ViewFields(View.Id).then(function(viewfields){
+
+                        //var ViewFields  = viewfields;
+
+                        ngSecurity.CurrentList.Fields().then(function (fields) {
+
+
+                            fields.forEach(function (field) {
+                                if(field.EntityPropertyName === "LinkTitle" || field.EntityPropertyName === "Title"){
+                                    var title_idx = viewfields.indexOf("LinkTitle");
+                                    if(title_idx !== -1 && field.EntityPropertyName === "Title") {
+                                        FormFields.splice(title_idx, 0, field);
+                                        //FormFields.push(field);
+                                    }
+                                }
+                                else {
+                                    var idx = viewfields.indexOf(field.EntityPropertyName);
+                                    if (idx !== -1) {
+                                        FormFields.splice(idx, 0, field);
+                                        //FormFields.push(field);
+                                    }
+                                }
+                            });
+                        });
+
+                    });
+                });
+
+                /*
                 ngSecurity.CurrentList.Fields().then(function (fields) {
 
                     fields.forEach(function (field) {
-                        if ((!field.Hidden && !field.ReadOnlyField) || (!field.Hidden && field.ReadOnlyField)) { //|| field.Required) {
+
+
+                        //if ((!field.Hidden && !field.ReadOnlyField) || (!field.Hidden && field.ReadOnlyField)) { //|| field.Required) {
                             if (isExisting) {
                                 field.Value = _ngItem[field.EntityPropertyName];
                             }
                             FormFields.push(field);
-                        }
+                        //}
                         ///console.log(field);
                     });
 
                 });
+                */
             }
             catch(ex) {
                 console.log(ex);

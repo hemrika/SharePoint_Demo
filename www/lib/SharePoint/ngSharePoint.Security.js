@@ -296,7 +296,7 @@
             return deferred.promise;
         };
 
-        var Authenticated = (_CurrentUser !== null) ? true : false;
+        var Authenticated = true;//(_CurrentUser !== null) ? true : false;
 
       /**
          *
@@ -836,6 +836,7 @@
             });
             return deferred.promise;
         }
+
 
         function GetContextInfoService()
         {

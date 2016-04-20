@@ -284,9 +284,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngList.Items.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngList.Items.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -349,6 +351,24 @@
                 return deferred.promise;
             };
 
+            this.ViewFields = function (value) {
+                var deferred = $q.defer();
+
+                var Operator = "Views(guid'"+value+"')/ViewFields";
+                //var Operator = _ngList.Views.__deferred.uri.split('/').pop();
+                if (ngSecurity.CurrentUser !== null) {
+                    _list.deferred({EndPoint: ngSecurity.Endpoint, List: _ngList.Id, Deferred: Operator}).$promise.then(
+                        function (data) {
+                            if (angular.isDefined(data.Items.results)) {
+                                deferred.resolve(data.Items.results);
+                            }
+                            else {
+                                deferred.resolve(data);
+                            }
+                        });
+                }
+                return deferred.promise;
+            };
             //endregion
 
             //region Methods

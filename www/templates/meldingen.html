@@ -3,30 +3,10 @@
         <h1 style="color: rgb(0, 0, 0);" id="meldingen-heading1">Meldingen</h1>
         <a class="button button-energized  button-block button-outline icon-right ion-alert-circled" id="meldingen-button8" ui-sref="nieuweMelding">Nieuwe Melding</a>
         <ion-list style="">
-            <ion-item style="" ui-sref="melding" class="item-thumbnail-left">
+            <ion-item ng-repeat="item in Web.List.Items" ui-sref="melding({ItemId: item.Id})" class="item-thumbnail-left">
                 <img>
-                <h2>Naam</h2>
-                <p>Beschrijving</p>
-            </ion-item>
-            <ion-item style="" ui-sref="melding" class="item-thumbnail-left">
-                <img>
-                <h2>Naam</h2>
-                <p>Beschrijving</p>
-            </ion-item>
-            <ion-item style="" ui-sref="melding" class="item-thumbnail-left">
-                <img>
-                <h2>Naam</h2>
-                <p>Beschrijving</p>
-            </ion-item>
-            <ion-item style="" ui-sref="melding" class="item-thumbnail-left">
-                <img>
-                <h2>Naam</h2>
-                <p>Beschrijving</p>
-            </ion-item>
-            <ion-item style="" ui-sref="melding" class="item-thumbnail-left">
-                <img>
-                <h2>Naam</h2>
-                <p>Beschrijving</p>
+                <h2>{{item.Onderwerp}}</h2>
+                <p>{{item.Urgentie}}</p>
             </ion-item>
         </ion-list>
     </ion-content>

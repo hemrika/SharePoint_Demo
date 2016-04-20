@@ -1,44 +1,13 @@
 angular.module('rapporteren.controllers', [])
 
-.controller('meldingenCtrl', function($scope, $state, SharePoint) {
+.controller('welkomCtrl', function($scope, SharePoint) {
 
-  //var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
-  //if(SharePoint.Security.Authenticated) {
-  //if(auth) {
-      try
-      {
-        $scope.Web = SharePoint.CurrentWeb();
+    $scope.$on('$ionicView.enter', function() {
+        //$scope.Authenticated = SharePoint.Security.Authenticated;
 
-        if (SharePoint.CurrentWeb() !== null) {
-
-          SharePoint.CurrentWeb().Lists('Meldingen').then(function (List) {
-            $scope.Web.List = List;
-          });
-          /*
-          if (SharePoint.CurrentList() === null) {
-            SharePoint.CurrentWeb().Lists('Meldingen').then(function (List) {
-              $scope.Web.List = List;
-            });
-          }
-          else {
-            $scope.Web.List = SharePoint.CurrentList();
-          }
-          */
-          if (SharePoint.CurrentList() !== null) {
-            SharePoint.CurrentList().Items().then(function (Items) {
-              $scope.Web.List.Items = Items;
-            });
-          }
-        }
-      }
-    catch(error)
-    {
-      console.log(error);
-    }
-  //}
-  //else {
-  //  $state.go('aanmelden', {}, {reload: true});
-  //}
+        var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
+        $scope.Authenticated = auth;
+    });
 })
 
 .controller('aanmeldenCtrl', function($scope, $state, SharePoint) {
@@ -61,50 +30,48 @@ angular.module('rapporteren.controllers', [])
   };
 })
 
-.controller('welkomCtrl', function($scope, SharePoint) {
+.controller('meldingenCtrl', function($scope, $state, SharePoint) {
 
-    $scope.$on('$ionicView.enter', function() {
-      //$scope.Authenticated = SharePoint.Security.Authenticated;
+    try {
+        $scope.$on('$ionicView.enter', function () {
+            SharePoint.Web().then(function (Web) {
+                Web.Lists('Meldingen').then(function (List) {
 
-      var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
-      $scope.Authenticated = auth;
-      //if(SharePoint.Security.Authenticated) {
-      //if(auth) {
-      //  try {
-      //    SharePoint.Web().then(function (Web) {
-            //$scope.Web = Web;
-      //      Web.Lists('Meldingen').then(function (List) {
-              //$scope.Web.List = List;
-      //      });
-      //    });
-      //  }
-      //  catch(error)
-      //  {
-      //    console.log(error);
-      //  }
-      //}
-    });
+                    List.Items().then(function (Items) {
+                        console.log(Items);
+
+                        //var results = Item.Fields[1].Choices.results;
+                        $scope.Web = Web.Properties;
+                        $scope.Web.List = List.Properties;
+                        $scope.Web.List.Items = Items;
+                    });
+
+                });
+            });
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
 })
-
 .controller('meldingCtrl', function($scope, $stateParams, $state, SharePoint) {
 
-  //var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
-  //if(SharePoint.Security.Authenticated) {
-  //if(auth) {
+    console.log($stateParams.ItemId);
+    //console.log($state);
     try {
       $scope.$on('$ionicView.enter', function () {
         SharePoint.Web().then(function (Web) {
           Web.Lists('Meldingen').then(function (List) {
 
-            List.Items(1).then(function (Item) {
-              console.log(Item);
+            List.Items($stateParams.ItemId).then(function (Item) {
 
-              //var results = Item.Fields[1].Choices.results;
-              $scope.Web = Web.Properties;
-              $scope.Web.List = List.Properties;
-              $scope.Web.List.Item = Item;
+                Item.AttachmentFiles().then(function(Files){
+                    $scope.Web = Web.Properties;
+                    $scope.Web.List = List.Properties;
+                    $scope.Web.List.Item = Item;
+                    $scope.Web.List.Item.Files = Files;
+                });
             });
-
           });
         });
       });
@@ -112,16 +79,10 @@ angular.module('rapporteren.controllers', [])
     catch (error) {
       console.log(error);
     }
-  //}
-  //else {
-  //  $state.go('aanmelden', {}, {reload: true});
-  //}
 })
 
 .controller('nieuweMeldingCtrl', function($scope, $stateParams, $state, SharePoint) {
-  //var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
-  //if(SharePoint.Security.Authenticated) {
-  //if(auth) {
+
     try
     {
       $scope.$on('$ionicView.enter', function() {
@@ -142,8 +103,22 @@ angular.module('rapporteren.controllers', [])
     {
       console.log(error);
     }
-  //}
-  //else {
-  //  $state.go('aanmelden', {}, {reload: true});
-  //}
+
+    $scope.Opslaan = function (Item) {
+        "use strict";
+        Item.Save().then(function (Item){
+            $scope.Web.List.Item = Item;
+        });
+    }
+
+    $scope.Toevoegen = function (Item, Naam, bsixfour) {
+
+        Item.AddFile("rutgerhemrika.jpg", bsixfour).then(function (file) {
+            SharePoint.GetFileByServerRelativeUrl(SharePoint.ServerRelativeUrl() + "/" + file).then(function(data){
+                //bsixfour = btoa(data);
+                //$scope.bsixfour = SharePoint.Url()+ data.ServerRelativeUrl;
+                //console.log(data);
+            });
+        });
+    }
 })

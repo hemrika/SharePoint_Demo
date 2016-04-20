@@ -7,9 +7,6 @@
     <exe-path>/usr/local/bin/bower</exe-path>
     <config-path>/usr/local/bin/bower</config-path>
   </component>
-  <component name="ProjectDictionaryState">
-    <dictionary name="hemrika" />
-  </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -35,9 +32,6 @@
     <OptionsSetting value="true" id="Edit" />
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
-  </component>
-  <component name="SvnConfiguration">
-    <configuration>$USER_HOME$/.subversion</configuration>
   </component>
   <component name="masterDetails">
     <states>
