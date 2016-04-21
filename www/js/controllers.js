@@ -113,7 +113,7 @@ angular.module('rapporteren.controllers', [])
 
     $scope.OpslaanFoto = function (Item, Naam, bsixfour) {
 
-        Item.AddFile("rutgerhemrika.jpg", bsixfour).then(function (file) {
+        Item.AddFile(Naam, bsixfour).then(function (file) {
             console.log(file);
             //SharePoint.GetFileByServerRelativeUrl(SharePoint.ServerRelativeUrl() + "/" + file).then(function(data){
                 //bsixfour = btoa(data);
