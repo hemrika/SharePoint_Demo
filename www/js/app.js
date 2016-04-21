@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('rapporteren', ['ionic', 'ngCordova', 'rapporteren.controllers', 'rapporteren.routes', 'rapporteren.services', 'rapporteren.directives', 'ngSharePoint'])
+angular.module('rapporteren', ['ionic', 'rapporteren.controllers', 'rapporteren.routes', 'rapporteren.services', 'rapporteren.directives', 'ngSharePoint'])
 
 .run(function($ionicPlatform, SharePoint) {
   $ionicPlatform.ready(function() {

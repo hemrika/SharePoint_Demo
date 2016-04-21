@@ -4,13 +4,8 @@
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4"
   },
-  "resolutions": {
-    "angular": "1.5.0",
-    "angular-sanitize": "^1.5.0",
-    "angular-ui-router": "^0.2.18",
-    "angular-animate": "^1.5.0"
-  },
   "dependencies": {
+    "font-awesome": "~4.4.0",
     "angular-resource": "~1.4.3",
     "jquery": "~2.2.3",
     "x2js": "x2js#~1.2.0"
