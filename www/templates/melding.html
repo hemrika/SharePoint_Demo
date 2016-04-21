@@ -2,8 +2,13 @@
     <ion-content class="has-header has-footer" padding="true">
 
         <ion-list style="">
+            {{Web.List.Item}}
+            urgentie: {{Web.List.Item.Urgentie}}
+            <p ng-bind="Web.List.Item.Urgentie"></p>
+
             <ion-item ng-repeat="file in Web.List.Item.Files" class="item-thumbnail-left">
                 <h2>{{file.FileName}}</h2>
+                url: {{Web.Url}}{{file.ServerRelativeUrl}}
                 <img src="{{Web.Url}}{{file.ServerRelativeUrl}}">
             </ion-item>
         </ion-list>

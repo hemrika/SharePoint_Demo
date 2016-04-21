@@ -52,7 +52,7 @@
                 }
             },
             "FileSystemObjectType": 0,
-            "Id": 1,
+            "Id": 0,
             "ContentTypeId": "",
             "Title": "",
             "Modified": "",
@@ -815,6 +815,12 @@
                                     }
                                 }
                             });
+
+                            self.Fields = FormFields;
+
+                            ngSecurity.CurrentItem = self;
+
+                            deferred.resolve(self);
                         });
 
                     });
@@ -842,12 +848,8 @@
                 console.log(ex);
             }
 
-            self.Fields = FormFields;
-
             //endregion
 
-            ngSecurity.CurrentItem = self;
-            deferred.resolve(self);
             //endregion
 
             return deferred.promise;

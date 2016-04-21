@@ -64,11 +64,10 @@ angular.module('rapporteren.controllers', [])
           Web.Lists('Meldingen').then(function (List) {
 
             List.Items($stateParams.ItemId).then(function (Item) {
-
+                $scope.Web = Web.Properties;
+                $scope.Web.List = List.Properties;
+                $scope.Web.List.Item = Item;
                 Item.AttachmentFiles().then(function(Files){
-                    $scope.Web = Web.Properties;
-                    $scope.Web.List = List.Properties;
-                    $scope.Web.List.Item = Item;
                     $scope.Web.List.Item.Files = Files;
                 });
             });
