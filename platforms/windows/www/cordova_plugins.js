@@ -3,6 +3,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-console/www/logger.js",
         "id": "cordova-plugin-console.logger",
+        "pluginId": "cordova-plugin-console",
         "clobbers": [
             "cordova.logger"
         ]
@@ -10,6 +11,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-console/www/console-via-logger.js",
         "id": "cordova-plugin-console.console",
+        "pluginId": "cordova-plugin-console",
         "clobbers": [
             "console"
         ]
@@ -17,6 +19,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-device/www/device.js",
         "id": "cordova-plugin-device.device",
+        "pluginId": "cordova-plugin-device",
         "clobbers": [
             "device"
         ]
@@ -24,6 +27,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-device/src/windows/DeviceProxy.js",
         "id": "cordova-plugin-device.DeviceProxy",
+        "pluginId": "cordova-plugin-device",
         "merges": [
             ""
         ]
@@ -31,6 +35,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
         "id": "cordova-plugin-splashscreen.SplashScreen",
+        "pluginId": "cordova-plugin-splashscreen",
         "clobbers": [
             "navigator.splashscreen"
         ]
@@ -38,6 +43,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-splashscreen/www/windows/SplashScreenProxy.js",
         "id": "cordova-plugin-splashscreen.SplashScreenProxy",
+        "pluginId": "cordova-plugin-splashscreen",
         "merges": [
             ""
         ]
@@ -45,6 +51,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
         "id": "cordova-plugin-statusbar.statusbar",
+        "pluginId": "cordova-plugin-statusbar",
         "clobbers": [
             "window.StatusBar"
         ]
@@ -52,11 +59,13 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-statusbar/src/windows/StatusBarProxy.js",
         "id": "cordova-plugin-statusbar.StatusBarProxy",
+        "pluginId": "cordova-plugin-statusbar",
         "runs": true
     },
     {
         "file": "plugins/ionic-plugin-keyboard/src/windows/KeyboardProxy.js",
         "id": "ionic-plugin-keyboard.KeyboardProxy",
+        "pluginId": "ionic-plugin-keyboard",
         "clobbers": [
             "cordova.plugins.Keyboard"
         ],
@@ -65,6 +74,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
         "id": "cordova-plugin-camera.Camera",
+        "pluginId": "cordova-plugin-camera",
         "clobbers": [
             "Camera"
         ]
@@ -72,6 +82,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
         "id": "cordova-plugin-camera.CameraPopoverOptions",
+        "pluginId": "cordova-plugin-camera",
         "clobbers": [
             "CameraPopoverOptions"
         ]
@@ -79,6 +90,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-camera/www/Camera.js",
         "id": "cordova-plugin-camera.camera",
+        "pluginId": "cordova-plugin-camera",
         "clobbers": [
             "navigator.camera"
         ]
@@ -86,6 +98,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-camera/www/CameraPopoverHandle.js",
         "id": "cordova-plugin-camera.CameraPopoverHandle",
+        "pluginId": "cordova-plugin-camera",
         "clobbers": [
             "CameraPopoverHandle"
         ]
@@ -93,6 +106,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-camera/src/windows/CameraProxy.js",
         "id": "cordova-plugin-camera.CameraProxy",
+        "pluginId": "cordova-plugin-camera",
         "merges": [
             ""
         ]
@@ -100,11 +114,13 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-geolocation/src/windows/GeolocationProxy.js",
         "id": "cordova-plugin-geolocation.GeolocationProxy",
+        "pluginId": "cordova-plugin-geolocation",
         "runs": true
     },
     {
         "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
         "id": "cordova-plugin-geolocation.Coordinates",
+        "pluginId": "cordova-plugin-geolocation",
         "clobbers": [
             "Coordinates"
         ]
@@ -112,6 +128,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
         "id": "cordova-plugin-geolocation.PositionError",
+        "pluginId": "cordova-plugin-geolocation",
         "clobbers": [
             "PositionError"
         ]
@@ -119,6 +136,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-geolocation/www/Position.js",
         "id": "cordova-plugin-geolocation.Position",
+        "pluginId": "cordova-plugin-geolocation",
         "clobbers": [
             "Position"
         ]
@@ -126,6 +144,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
         "id": "cordova-plugin-geolocation.geolocation",
+        "pluginId": "cordova-plugin-geolocation",
         "clobbers": [
             "navigator.geolocation"
         ]
@@ -140,8 +159,8 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.2",
     "cordova-plugin-whitelist": "1.2.1",
     "ionic-plugin-keyboard": "2.0.1",
-    "cordova-plugin-camera": "2.1.1",
+    "cordova-plugin-camera": "2.2.0",
     "cordova-plugin-geolocation": "2.1.0"
-}
+};
 // BOTTOM OF METADATA
 });

@@ -221,9 +221,11 @@
                     _list.deferred({EndPoint: ngSecurity.Endpoint, List: _ngList.Id, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngList.DefaultView.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngList.DefaultView.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -239,9 +241,11 @@
                     _list.deferred({EndPoint: ngSecurity.Endpoint, List: _ngList.Id, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngList.Fields.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngList.Fields.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -257,9 +261,11 @@
                     _list.deferred({EndPoint: ngSecurity.Endpoint, List: _ngList.Id, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngList.Forms.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngList.Forms.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -305,9 +311,11 @@
                     _list.deferred({EndPoint: ngSecurity.Endpoint, List: _ngList.Id, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngList.ParentWeb.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngList.ParentWeb.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -323,9 +331,11 @@
                     _list.deferred({EndPoint: ngSecurity.Endpoint, List: _ngList.Id, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngList.RootFolder.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngList.RootFolder.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -341,15 +351,21 @@
                     _list.deferred({EndPoint: ngSecurity.Endpoint, List: _ngList.Id, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngList.Views.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngList.Views.__deferred;
                                 deferred.resolve(data);
                             }
                         });
                 }
                 return deferred.promise;
             };
+
+            //endregion
+
+            //region Methods
 
             this.ViewFields = function (value) {
                 var deferred = $q.defer();
@@ -369,9 +385,6 @@
                 }
                 return deferred.promise;
             };
-            //endregion
-
-            //region Methods
 
             this.GetView = function (value) {
                 var deferred = $q.defer();
@@ -381,6 +394,7 @@
                     _list.deferred({EndPoint: ngSecurity.Endpoint, List: _ngList.Id, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+
                                 deferred.resolve(data.results);
                             }
                             else {

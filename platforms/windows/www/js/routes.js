@@ -1,4 +1,4 @@
-angular.module('app.routes', [])
+angular.module('rapporteren.routes', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -7,8 +7,8 @@ angular.module('app.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    
-  
+
+
 
       .state('meldingen', {
     url: '/Meldingen',
@@ -29,7 +29,7 @@ angular.module('app.routes', [])
   })
 
   .state('melding', {
-    url: '/Melding',
+    url: '/Melding/:ItemId',
     templateUrl: 'templates/melding.html',
     controller: 'meldingCtrl'
   })
@@ -40,8 +40,6 @@ angular.module('app.routes', [])
     controller: 'nieuweMeldingCtrl'
   })
 
-$urlRouterProvider.otherwise('/Welkom')
-
-  
+  $urlRouterProvider.otherwise('/Welkom');
 
 });

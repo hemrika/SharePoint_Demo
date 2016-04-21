@@ -1,4 +1,4 @@
-angular.module('app.directives', [])
+angular.module('rapporteren.directives', [])
 
 .directive('blankDirective', [function(){
 

@@ -161,33 +161,7 @@
             this.Attachments = function (value) {
                 return angular.isDefined(value) ? (_ngItem.Attachments = value) : _ngItem.Attachments;
             };
-            this.AttachmentFiles = function (value) {
 
-                if (angular.isDefined(value)) {
-                    return new ngFile(value);
-                }
-                else {
-                    var deferred = $q.defer();
-
-                    var Operator = _ngItem.AttachmentFiles.__deferred.uri.split('/').pop();
-                    _list.deferred({
-                        EndPoint: ngSecurity.Endpoint,
-                        List: _ngList.Id,
-                        Deferred: Operator
-                    }).$promise.then(
-                        function (data) {
-                            if (angular.isDefined(data.results)) {
-                                deferred.resolve(data.results);
-                            }
-                            else {
-                                deferred.resolve(data);
-                            }
-                        });
-
-                    return deferred.promise;
-                }
-                return angular.isDefined(value) ? (_ngItem.AttachmentFiles = value) : _ngItem.AttachmentFiles;
-            };
             this.GUID = function () {
                 return angular.isDefined(value) ? (_ngItem.GUID = value) : _ngItem.GUID;
             };
@@ -215,9 +189,11 @@
                         }).$promise.then(
                             function (data) {
                                 if (angular.isDefined(data.results)) {
+                                    data.results.__deferred = _ngItem.AttachmentFiles.__deferred;
                                     deferred.resolve(data.results);
                                 }
                                 else {
+                                    data.__deferred = _ngItem.AttachmentFiles.__deferred;
                                     deferred.resolve(data);
                                 }
                             });
@@ -227,6 +203,9 @@
             };
 
             this.ContentType = function () {
+
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.ContentType.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -237,9 +216,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.ContentType.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.ContentType.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -248,6 +229,8 @@
             };
 
             this.FieldValuesAsHtml = function () {
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.FieldValuesAsHtml.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -258,9 +241,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.FieldValuesAsHtml.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.FieldValuesAsHtml.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -269,6 +254,8 @@
             };
 
             this.FieldValuesAsText = function () {
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.FieldValuesAsText.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -279,9 +266,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.FieldValuesAsText.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.FieldValuesAsText.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -290,6 +279,9 @@
             };
 
             this.FieldValuesForEdit = function () {
+
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.FieldValuesForEdit.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -300,9 +292,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.FieldValuesForEdit.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.FieldValuesForEdit.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -338,6 +332,8 @@
 
             this.Folder = function () {
 
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.Folder.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -348,9 +344,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.Folder.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.Folder.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -359,6 +357,8 @@
             };
 
             this.ParentList = function () {
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.ParentList.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -369,9 +369,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.ParentList.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.ParentList.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -485,6 +487,9 @@
                                 }
 
                             });
+
+                            self.Id(ows_row["_ows_ID"]);
+
                             deferred.resolve(self);
                         }
 
@@ -562,6 +567,8 @@
                             }
 
                         });
+
+                        self.Id(ows_row["_ows_ID"]);
                         deferred.resolve(self);
                     }
 
@@ -641,15 +648,17 @@
                                 }
 
                             });
+
+                            self.Id(ows_row["_ows_ID"]);
                             deferred.resolve(self);
                         }
 
                         //var results = angular.element(angular.element.parseXML(result)).find("Results").text();
                         //deferred.resolve(result.data);
                     });
-                }
 
-                return deferred.promise;
+                    return deferred.promise;
+                }
             };
 
             this.AddFile = function (name, value) {
@@ -786,13 +795,9 @@
             try {
                 ngSecurity.CurrentList.DefaultView().then(function(View){
 
-                    console.log(View);
                     ngSecurity.CurrentList.ViewFields(View.Id).then(function(viewfields){
 
-                        //var ViewFields  = viewfields;
-
                         ngSecurity.CurrentList.Fields().then(function (fields) {
-
 
                             fields.forEach(function (field) {
                                 if(field.EntityPropertyName === "LinkTitle" || field.EntityPropertyName === "Title"){

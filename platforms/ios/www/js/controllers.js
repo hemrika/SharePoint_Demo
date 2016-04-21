@@ -1,24 +1,13 @@
 angular.module('rapporteren.controllers', [])
 
-.controller('meldingenCtrl', function($scope, $state, SharePoint) {
+.controller('welkomCtrl', function($scope, SharePoint) {
 
-  var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
-  //if(SharePoint.Security.Authenticated) {
-  if(auth) {
-      try
-      {
-        SharePoint.CurrentList().Items().then(function(Items){
+    $scope.$on('$ionicView.enter', function() {
+        //$scope.Authenticated = SharePoint.Security.Authenticated;
 
-        });
-      }
-    catch(error)
-    {
-      console.log(error);
-    }
-  }
-  else {
-    $state.go('aanmelden', {}, {reload: true});
-  }
+        var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
+        $scope.Authenticated = auth;
+    });
 })
 
 .controller('aanmeldenCtrl', function($scope, $state, SharePoint) {
@@ -41,29 +30,140 @@ angular.module('rapporteren.controllers', [])
   };
 })
 
-.controller('welkomCtrl', function($scope, SharePoint) {
+.controller('meldingenCtrl', function($scope, $state, SharePoint) {
 
-    $scope.$on('$ionicView.enter', function() {
-      //$scope.Authenticated = SharePoint.Security.Authenticated;
+    try {
+        $scope.$on('$ionicView.enter', function () {
+            SharePoint.Web().then(function (Web) {
+                Web.Lists('Meldingen').then(function (List) {
 
-      var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
-      $scope.Authenticated = auth;
-      //if(SharePoint.Security.Authenticated) {
-      if(auth) {
+                    List.Items().then(function (Items) {
+                        console.log(Items);
+
+                        //var results = Item.Fields[1].Choices.results;
+                        $scope.Web = Web.Properties;
+                        $scope.Web.List = List.Properties;
+                        $scope.Web.List.Items = Items;
+                    });
+
+                });
+            });
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+})
+.controller('meldingCtrl', function($scope, $stateParams, $state, SharePoint) {
+
+    console.log($stateParams.ItemId);
+    //console.log($state);
+    try {
+      $scope.$on('$ionicView.enter', function () {
         SharePoint.Web().then(function (Web) {
-          $scope.Web = Web;
           Web.Lists('Meldingen').then(function (List) {
-            $scope.Web.List = List;
+
+            List.Items($stateParams.ItemId).then(function (Item) {
+
+                Item.AttachmentFiles().then(function(Files){
+                    $scope.Web = Web.Properties;
+                    $scope.Web.List = List.Properties;
+                    $scope.Web.List.Item = Item;
+                    $scope.Web.List.Item.Files = Files;
+                });
+            });
           });
         });
-      }
-    });
+      });
+    }
+    catch (error) {
+      console.log(error);
+    }
 })
 
-.controller('meldingCtrl', function($scope) {
+.controller('nieuweMeldingCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera) {
 
-})
+    try
+    {
+      $scope.$on('$ionicView.enter', function() {
+        SharePoint.Web().then(function (Web) {
+          Web.Lists('Meldingen').then(function (List) {
 
-.controller('nieuweMeldingCtrl', function($scope) {
+             List.Items(-1).then(function(Item){
+             //List.Items('New').then(function(Item){
+             $scope.Web = Web.Properties;
+             $scope.Web.List = List.Properties;
+             $scope.Web.List.Item = Item;
+             });
+          });
+        });
+      });
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
 
+    $scope.Opslaan = function (Item) {
+        "use strict";
+        Item.Save().then(function (Item){
+            $scope.Web.List.Item = Item;
+        });
+    }
+
+    $scope.OpslaanFoto = function (Item, Naam, bsixfour) {
+
+        Item.AddFile("rutgerhemrika.jpg", bsixfour).then(function (file) {
+            console.log(file);
+            //SharePoint.GetFileByServerRelativeUrl(SharePoint.ServerRelativeUrl() + "/" + file).then(function(data){
+                //bsixfour = btoa(data);
+                //$scope.bsixfour = SharePoint.Url()+ data.ServerRelativeUrl;
+                //console.log(data);
+            //});
+        });
+    }
+
+    $scope.takePhoto = function () {
+        var options = {
+            quality: 75,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 300,
+            targetHeight: 300,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+        };
+
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+            $scope.bsixfour = imageData;
+            $scope.imgURI = "data:image/jpeg;base64," + imageData;
+        }, function (err) {
+            console.log(err);
+            // An error occured. Show a message to the user
+        });
+    }
+
+    $scope.choosePhoto = function () {
+        var options = {
+            quality: 75,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            allowEdit: true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 300,
+            targetHeight: 300,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+        };
+
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+            $scope.bsixfour = imageData;
+            $scope.imgURI = "data:image/jpeg;base64," + imageData;
+        }, function (err) {
+            console.log(err);
+            // An error occured. Show a message to the user
+        });
+    }
 })

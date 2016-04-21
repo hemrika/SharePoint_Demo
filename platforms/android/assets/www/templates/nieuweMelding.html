@@ -1,11 +1,20 @@
 <ion-view style="" id="Meldingen" title="Meldingen">
     <ion-content class="has-header" padding="true">
         <form style="" class="list">
-          <ion-list>
+            <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" style="text-align: center">
+            <button class="button button-energized  button-block button-outline icon-left ion-camera" ng-click="takePhoto()">
+                Neem Foto
+            </button>
+            <button class="button button-energized  button-block button-outline icon-right ion-images" ng-click="choosePhoto()">
+                Kies Foto
+            </button>
+            <ion-list>
               <ion-item ng-repeat="Field in Web.List.Item.Fields">
                   <div data-ng-include="'lib/SharePoint/components/Office-UI-Fabric.htm'"></div>
               </ion-item>
-          </ion-list>
+            </ion-list>
+            <button class="button button-energized  button-block button-outline icon-right ion-alert-circled" data-ng-click="OpslaanFoto(Web.List.Item,'fotonaam.jpg',bsixfour)" id="melding_bestanden">Opslaan Foto</button>
+            <button class="button button-energized  button-block button-outline icon-right ion-alert-circled" data-ng-click="Opslaan(Web.List.Item)" id="melding_opslaan">Opslaan Melding</button>
             <label style="" name="soort" class="item item-select">
                 <span class="input-label">Soort</span>
                 <select>
@@ -47,7 +56,8 @@
                 <input placeholder="" type="text">
             </label>
             <div style="width: 285px; height: 19px;" class="spacer"></div>
-            <a class="button button-energized  button-block button-outline icon-right ion-alert-circled" id="nieuweMelding-button9" ui-sref="melding">Melden</a>
+            <button class="button button-energized  button-block button-outline icon-right ion-alert-circled" data-ng-click="Bestanden(Web.List.Item)" id="melding_bestanden">Bestanden</button>
+            <button class="button button-energized  button-block button-outline icon-right ion-alert-circled" data-ng-click="Opslaan(Web.List.Item)">Opslaan</button>
         </form>
     </ion-content>
 </ion-view>

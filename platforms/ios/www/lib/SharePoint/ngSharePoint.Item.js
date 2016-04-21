@@ -161,33 +161,7 @@
             this.Attachments = function (value) {
                 return angular.isDefined(value) ? (_ngItem.Attachments = value) : _ngItem.Attachments;
             };
-            this.AttachmentFiles = function (value) {
 
-                if (angular.isDefined(value)) {
-                    return new ngFile(value);
-                }
-                else {
-                    var deferred = $q.defer();
-
-                    var Operator = _ngItem.AttachmentFiles.__deferred.uri.split('/').pop();
-                    _list.deferred({
-                        EndPoint: ngSecurity.Endpoint,
-                        List: _ngList.Id,
-                        Deferred: Operator
-                    }).$promise.then(
-                        function (data) {
-                            if (angular.isDefined(data.results)) {
-                                deferred.resolve(data.results);
-                            }
-                            else {
-                                deferred.resolve(data);
-                            }
-                        });
-
-                    return deferred.promise;
-                }
-                return angular.isDefined(value) ? (_ngItem.AttachmentFiles = value) : _ngItem.AttachmentFiles;
-            };
             this.GUID = function () {
                 return angular.isDefined(value) ? (_ngItem.GUID = value) : _ngItem.GUID;
             };
@@ -215,9 +189,11 @@
                         }).$promise.then(
                             function (data) {
                                 if (angular.isDefined(data.results)) {
+                                    data.results.__deferred = _ngItem.AttachmentFiles.__deferred;
                                     deferred.resolve(data.results);
                                 }
                                 else {
+                                    data.__deferred = _ngItem.AttachmentFiles.__deferred;
                                     deferred.resolve(data);
                                 }
                             });
@@ -237,9 +213,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.ContentType.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.ContentType.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -258,9 +236,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.FieldValuesAsHtml.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.FieldValuesAsHtml.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -279,9 +259,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.FieldValuesAsText.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.FieldValuesAsText.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -300,9 +282,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.FieldValuesForEdit.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.FieldValuesForEdit.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -348,9 +332,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.Folder.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.Folder.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -369,9 +355,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngItem.ParentList.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngItem.ParentList.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -781,20 +769,53 @@
 
             var FormFields = [];
 
+            //var ViewFields = [];
+
             try {
+                ngSecurity.CurrentList.DefaultView().then(function(View){
+
+                    ngSecurity.CurrentList.ViewFields(View.Id).then(function(viewfields){
+
+                        ngSecurity.CurrentList.Fields().then(function (fields) {
+
+                            fields.forEach(function (field) {
+                                if(field.EntityPropertyName === "LinkTitle" || field.EntityPropertyName === "Title"){
+                                    var title_idx = viewfields.indexOf("LinkTitle");
+                                    if(title_idx !== -1 && field.EntityPropertyName === "Title") {
+                                        FormFields.splice(title_idx, 0, field);
+                                        //FormFields.push(field);
+                                    }
+                                }
+                                else {
+                                    var idx = viewfields.indexOf(field.EntityPropertyName);
+                                    if (idx !== -1) {
+                                        FormFields.splice(idx, 0, field);
+                                        //FormFields.push(field);
+                                    }
+                                }
+                            });
+                        });
+
+                    });
+                });
+
+                /*
                 ngSecurity.CurrentList.Fields().then(function (fields) {
 
                     fields.forEach(function (field) {
-                        if ((!field.Hidden && !field.ReadOnlyField) || (!field.Hidden && field.ReadOnlyField)) { //|| field.Required) {
+
+
+                        //if ((!field.Hidden && !field.ReadOnlyField) || (!field.Hidden && field.ReadOnlyField)) { //|| field.Required) {
                             if (isExisting) {
                                 field.Value = _ngItem[field.EntityPropertyName];
                             }
                             FormFields.push(field);
-                        }
+                        //}
                         ///console.log(field);
                     });
 
                 });
+                */
             }
             catch(ex) {
                 console.log(ex);

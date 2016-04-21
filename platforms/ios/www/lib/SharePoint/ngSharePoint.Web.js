@@ -119,7 +119,7 @@
             {
                 get: {
                     method: 'GET',
-                    params: {EndPoint: '', Deferred: ''},
+                    params: {EndPoint: '@EndPoint', Deferred: '@Deferred'},
                     headers: {
                         'Accept': 'application/json;odata=verbose',
                         'content-type': 'application/json;odata=verbose'
@@ -127,7 +127,7 @@
                 },
                 deferred: {
                     method: 'GET',
-                    params: {EndPoint: '', Deferred: ''},
+                  params: {EndPoint: '@EndPoint', Deferred: '@Deferred'},
                     headers: {
                         'Accept': 'application/json;odata=verbose',
                         'content-type': 'application/json;odata=verbose'
@@ -135,7 +135,7 @@
                 },
                 save: {
                     method: 'POST',
-                    params: {EndPoint: '', Deferred: ''},
+                  params: {EndPoint: '@EndPoint', Deferred: '@Deferred'},
                     headers: {
                         'Accept': 'application/json;odata=verbose',
                         'content-type': 'application/json;odata=verbose'
@@ -320,9 +320,11 @@
                     API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngWeb.AllProperties.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngWeb.AllProperties.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -338,9 +340,11 @@
                     API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngWeb.AvailableFields.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngWeb.AvailableFields.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -356,9 +360,11 @@
                     API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngWeb.CurrentUser.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngWeb.CurrentUser.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -380,9 +386,11 @@
                         API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                             function (data) {
                                 if (angular.isDefined(data.results)) {
+                                    data.results.__deferred = _ngWeb.Lists.__deferred;
                                     deferred.resolve(data.results);
                                 }
                                 else {
+                                    data.__deferred = _ngWeb.Lists.__deferred;
                                     deferred.resolve(data);
                                 }
                             });
@@ -400,9 +408,11 @@
                     API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngWeb.ParentWeb.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngWeb.ParentWeb.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -419,9 +429,11 @@
                     API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngWeb.RegionalSettings.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngWeb.RegionalSettings.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -437,9 +449,11 @@
                     API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngWeb.RootFolder.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngWeb.RootFolder.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -455,9 +469,11 @@
                     API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngWeb.ThemeInfo.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngWeb.ThemeInfo.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -473,9 +489,11 @@
                     API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngWeb.Webs.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngWeb.Webs.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -491,9 +509,11 @@
                     API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngWeb.WebInfos.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngWeb.WebInfos.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -530,7 +550,7 @@
 
                 var Operator = "getuserbyid(" + int + ")";
                 if (ngSecurity.CurrentUser !== null) {
-                    API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
+                    API.deferred({EndPoint:ngSecurity.Endpoint, Deferred:Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
                                 deferred.resolve(data.results);
@@ -574,7 +594,7 @@
                 deferred.resolve(self);
             }
             else {
-                API.get({EndPoint: ngSecurity.Endpoint}).$promise.then(
+                API.get({EndPoint:ngSecurity.Endpoint}).$promise.then(
                     function (data) {
                         _ngWeb = data;
                         self.Properties = _ngWeb;

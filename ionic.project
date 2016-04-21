@@ -1,6 +1,6 @@
 {
   "name": "Rapporteren",
-  "app_id": "",
+  "app_id": "72e82a6c",
   "gulpStartupTasks": [
     "sass",
     "watch"

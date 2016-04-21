@@ -80,9 +80,11 @@
                     API.deferred({EndPoint: ngSecurity.Endpoint, Deferred: Operator}).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngSite.Features.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngSite.Features.__deferred;
                                 deferred.resolve(data);
                             }
                         });

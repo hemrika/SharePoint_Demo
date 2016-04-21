@@ -180,9 +180,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngFile.Author.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngFile.Author.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -201,9 +203,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngFile.CheckedOutByUser.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngFile.CheckedOutByUser.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -222,9 +226,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngFile.ListItemAllFields.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngFile.ListItemAllFields.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -243,9 +249,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngFile.ModifiedBy.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngFile.ModifiedBy.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -264,9 +272,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngFile.Properties.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngFile.Properties.__deferred;
                                 deferred.resolve(data);
                             }
                         });
@@ -285,9 +295,11 @@
                     }).$promise.then(
                         function (data) {
                             if (angular.isDefined(data.results)) {
+                                data.results.__deferred = _ngFile.Versions.__deferred;
                                 deferred.resolve(data.results);
                             }
                             else {
+                                data.__deferred = _ngFile.Versions.__deferred;
                                 deferred.resolve(data);
                             }
                         });
