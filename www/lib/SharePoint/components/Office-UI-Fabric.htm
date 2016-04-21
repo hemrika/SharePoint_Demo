@@ -20,19 +20,19 @@
     <span data-ng-switch-when='3'>
         <div class="ms-TextField ms-TextField--multiline">
             <label class="ms-Label">{{Field.Title}}</label>
-            <textarea class="ms-TextField-field" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value"></textarea>
+            <textarea class="ms-TextField-field" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" type="text"></textarea>
         </div>
 
     </span>
     <!-- DateTime -->
     <span data-ng-switch-when='4'>
         <div>{{Field.Title}}</div>
-            <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" type='text' />
+            <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" type='datetime' />
     </span>
     <!-- Counter -->
     <span data-ng-switch-when='5'>
         <div>{{Field.Title}}</div>
-            <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" type='text' />
+            <input name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" data-ng-model="Field.Value" type='number' />
     </span>
     <!-- Choice -->
     <span data-ng-switch-when='6'>

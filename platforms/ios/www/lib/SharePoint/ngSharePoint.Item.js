@@ -203,6 +203,9 @@
             };
 
             this.ContentType = function () {
+
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.ContentType.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -226,6 +229,8 @@
             };
 
             this.FieldValuesAsHtml = function () {
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.FieldValuesAsHtml.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -249,6 +254,8 @@
             };
 
             this.FieldValuesAsText = function () {
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.FieldValuesAsText.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -272,6 +279,9 @@
             };
 
             this.FieldValuesForEdit = function () {
+
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.FieldValuesForEdit.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -322,6 +332,8 @@
 
             this.Folder = function () {
 
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.Folder.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -345,6 +357,8 @@
             };
 
             this.ParentList = function () {
+                var deferred = $q.defer();
+
                 var Operator = _ngItem.ParentList.__deferred.uri.split('/').pop();
                 if (ngSecurity.CurrentUser !== null) {
                     _item.deferred({
@@ -473,6 +487,9 @@
                                 }
 
                             });
+
+                            self.Id(ows_row["_ows_ID"]);
+
                             deferred.resolve(self);
                         }
 
@@ -550,6 +567,8 @@
                             }
 
                         });
+
+                        self.Id(ows_row["_ows_ID"]);
                         deferred.resolve(self);
                     }
 
@@ -629,15 +648,17 @@
                                 }
 
                             });
+
+                            self.Id(ows_row["_ows_ID"]);
                             deferred.resolve(self);
                         }
 
                         //var results = angular.element(angular.element.parseXML(result)).find("Results").text();
                         //deferred.resolve(result.data);
                     });
-                }
 
-                return deferred.promise;
+                    return deferred.promise;
+                }
             };
 
             this.AddFile = function (name, value) {
