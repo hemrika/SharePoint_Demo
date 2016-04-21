@@ -9,5 +9,10 @@
     "angular-sanitize": "^1.5.0",
     "angular-ui-router": "^0.2.18",
     "angular-animate": "^1.5.0"
+  },
+  "dependencies": {
+    "angular-resource": "~1.4.3",
+    "jquery": "~2.2.3",
+    "x2js": "x2js#~1.2.0"
   }
 }
