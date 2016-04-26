@@ -9,7 +9,7 @@
             <ion-item ng-repeat="file in Web.List.Item.Files" class="item-thumbnail-left">
                 <h2>{{file.FileName}}</h2>
                 url: {{Web.Url}}{{file.ServerRelativeUrl}}
-                <img src="{{Web.Url}}{{file.ServerRelativeUrl}}">
+                <img ng-src="{{Web.Url}}{{file.ServerRelativeUrl}}">
             </ion-item>
         </ion-list>
     </ion-content>

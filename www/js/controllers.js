@@ -66,7 +66,7 @@ angular.module('rapporteren.controllers', [])
             List.Items($stateParams.ItemId).then(function (Item) {
                 $scope.Web = Web.Properties;
                 $scope.Web.List = List.Properties;
-                $scope.Web.List.Item = Item;
+                $scope.Web.List.Item = Item.Properties;
                 Item.AttachmentFiles().then(function(Files){
                     $scope.Web.List.Item.Files = Files;
                 });

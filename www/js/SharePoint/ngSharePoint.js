@@ -62,8 +62,12 @@
             return {
                 response: function (response) {
                     var deferred = $q.defer();
-                    if (response.headers()['content-type'] === "application/json;odata=verbose;charset=utf-8" && response.data) {
+                    if (response.headers()['content-type'] === 'application/json;odata=verbose;charset=utf-8' && response.data) {
                         response.data = response.data.d ? response.data.d : response.data;
+                    }
+
+                    if (response.headers()['content-type'] === 'text/xml; charset="UTF-8"' ) {
+                            //response.header()
                     }
 
                     deferred.resolve(response);

@@ -4,28 +4,19 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {
-            "package.appxmanifest": {
-                "parents": {
-                    "/Package/Capabilities": [
-                        {
-                            "xml": "<DeviceCapability Name=\"webcam\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<DeviceCapability Name=\"location\" />",
-                            "count": 1
-                        }
-                    ]
-                }
-            }
-        }
+        "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "Rapporteren"
+        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "Rapporteren"
         },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "Rapporteren"
+        },
+        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "Rapporteren"
         },
         "cordova-plugin-splashscreen": {
@@ -38,12 +29,6 @@
             "PACKAGE_NAME": "Rapporteren"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "Rapporteren"
-        },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "Rapporteren"
-        },
-        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "Rapporteren"
         }
     },

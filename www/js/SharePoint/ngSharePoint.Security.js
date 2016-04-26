@@ -218,80 +218,32 @@
                     //console.log(branding);
                     _Branding = branding;
                     Security.Branding = _Branding;
-
-                    // region SharePoint Forms Login
-                    /*
-                     GetSecurityTokenService().then(function (token) {
-                     //console.log(token);
-                     _SecurityToken = angular.element(angular.element.parseXML(token)).find("BinarySecurityToken").text();
-                     Security.SecurityToken = _SecurityToken;
-                     console.log(_SecurityToken);
-
-                     GetHttpCookies().then(function (page) {
-                     console.log(page);
-
-                     GetCurrentUser().then(function (user) {
-                     console.log(user);
-                     _CurrentUser = user;
-                     Security.CurrentUser = _CurrentUser;
-                     GetContextInfo().then(function(data){
-                     console.log(data);
-                     deferred.resolve(data);
-                     }); //GetContextInfo
-                     }); //GetCurrentUser
-                     }); //GetHttpCookies
-                     }); //GetSecurityTokenService
-                     */
-                    //endregion
-
-                    //region IDentity Client Runtime Library service
-
-                    GetRemoteSecurityToken().then(function (token) {
-                        //console.log(token);
-                        _SecurityToken = angular.element(angular.element.parseXML(token)).find("BinarySecurityToken").text();
-                        Security.SecurityToken = _SecurityToken;
-                        $rootScope.SecurityToken = _SecurityToken;
-                        //console.log(_SecurityToken);
-                        GetSecurityCookie().then(function (cookie) {
-                            //console.log(cookie);
-                            GetCurrentUser().then(function (user) {
-                                //console.log(user);
-                                _CurrentUser = user;
-                                Security.CurrentUser = _CurrentUser;
-                              _UseContextInfo = false;
-                              Security.UseContextInfo = false;
-                              GetContextInfoService().then(function(contextinfo){
-                                _ContextInfo = contextinfo;
-                                Security.ContextInfo = _ContextInfo;
-                                deferred.resolve();
-                              });
-/*                                GetContextInfo().then(function(contextinfo){
-                                    //console.log(contextinfo);
-                                    if(contextinfo === ""){
-                                        _UseContextInfo = false;
-                                        Security.UseContextInfo = false;
-                                        GetContextInfoService().then(function(contextinfov2){
-                                            _ContextInfo = contextinfov2;
-                                            Security.ContextInfo = _ContextInfo;
-                                            deferred.resolve();
-                                        });
-                                    }
-                                    else {
-                                    _ContextInfo = contextinfo;
-                                    Security.ContextInfo = _ContextInfo;
-                                        deferred.resolve();
-                                    }
-                                    //UpdateContextInfo().then(function () {
-
-                                    //}); //UpdateContextInfo
-                                });*/ //GetContextInfo
-                            }); //GetCurrentUser
-                        }); //GetSecurityCookie
-                    }); //GetRemoteSecurityToken
-
-                    //endregion
                 });
             });
+
+            GetRemoteSecurityToken().then(function (token) {
+                //console.log(token);
+                _SecurityToken = angular.element(angular.element.parseXML(token)).find("BinarySecurityToken").text();
+                Security.SecurityToken = _SecurityToken;
+                $rootScope.SecurityToken = _SecurityToken;
+                //console.log(_SecurityToken);
+                GetSecurityCookie().then(function (cookie) {
+                    //console.log(cookie);
+                    GetCurrentUser().then(function (user) {
+                        //console.log(user);
+                        _CurrentUser = user;
+                        Security.CurrentUser = _CurrentUser;
+                        Authenticated = true;
+                        _UseContextInfo = false;
+                        Security.UseContextInfo = false;
+                        GetContextInfoService().then(function(contextinfo){
+                            _ContextInfo = contextinfo;
+                            Security.ContextInfo = _ContextInfo;
+                            deferred.resolve();
+                        });
+                    }); //GetCurrentUser
+                }); //GetSecurityCookie
+            }); //GetRemoteSecurityToken
 
             return deferred.promise;
         };
@@ -469,6 +421,7 @@
             */
             return rst.join("").toString();
         }
+
         /**
          * @return {string}
          */
@@ -484,6 +437,8 @@
         }
 
         //endregion
+
+        //region MetaData
 
         /**
          *
@@ -592,6 +547,10 @@
 
             return deferred.promise;
         }
+
+        //endregion
+
+
         /**
          *
          * @returns {*}
@@ -647,6 +606,11 @@
             return deferred.promise;
         }
 
+        /**
+         *
+         * @returns {*}
+         * @constructor
+         */
         function GetRemoteLogin(){
             var deferred = $q.defer();
             var message = RemoteSecurityToken();
@@ -697,6 +661,7 @@
             return deferred.promise;
         }
         */
+
         //IDentity Client Runtime Library service
         /**
          *
@@ -827,7 +792,7 @@
                     _ContextInfo = ContextInfo;
                     Security.ContextInfo = _ContextInfo;
                     $rootScope.FormDigestValue = ContextInfo.FormDigestValue;
-                    //delete $http.defaults.headers.common.Authorization;// = undefined;
+                    delete $http.defaults.headers.common.Authorization;// = undefined;
                     deferred.resolve(ContextInfo);
                 }
                 else {
@@ -835,7 +800,7 @@
                 }
             }, function (response) {
                 //console.log("Cannot get digestValue.");
-                //delete $http.defaults.headers.common.Authorization;// = undefined;
+                delete $http.defaults.headers.common.Authorization;// = undefined;
                 deferred.reject();
             });
             return deferred.promise;
@@ -878,11 +843,11 @@
                 _ContextInfo = ContextInfo;
                 Security.ContextInfo = _ContextInfo;
                 $rootScope.FormDigestValue = ContextInfo.FormDigestValue;
-                //delete $http.defaults.headers.common.Authorization;// = undefined;
+                delete $http.defaults.headers.common.Authorization;// = undefined;
                 deferred.resolve(ContextInfo);
             }, function (response) {
                 //console.log("Cannot get digestValue.");
-                //delete $http.defaults.headers.common.Authorization;// = undefined;
+                delete $http.defaults.headers.common.Authorization;// = undefined;
                 deferred.reject();
             });
             return deferred.promise;
@@ -920,6 +885,7 @@
                     _ContextInfo = ContextInfo;
                     Security.ContextInfo = _ContextInfo;
                     $rootScope.FormDigestValue = ContextInfo.FormDigestValue;
+                    delete $http.defaults.headers.common.Authorization;// = undefined;
                     //setTimeout(function () {
                     //   UpdateContextInfo();
                     //}
@@ -927,6 +893,7 @@
 
                     deferred.resolve(_ContextInfo);
                 }, function (response) {
+                    delete $http.defaults.headers.common.Authorization;// = undefined;
                     deferred.reject();
                 });
             }
@@ -956,11 +923,11 @@
                     _ContextInfo = ContextInfo;
                     Security.ContextInfo = _ContextInfo;
                     $rootScope.FormDigestValue = ContextInfo.FormDigestValue;
-
+                    delete $http.defaults.headers.common.Authorization;// = undefined;
                     deferred.resolve(ContextInfo);
                 }, function (response) {
                     //console.log("Cannot get digestValue.");
-
+                    delete $http.defaults.headers.common.Authorization;// = undefined;
                     deferred.reject();
                 });
             }
