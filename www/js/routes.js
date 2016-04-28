@@ -7,38 +7,41 @@ angular.module('rapporteren.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
+      .state('Welkom', {
+          url: '/Welkom',
+          templateUrl: 'templates/Welkom.html',
+          controller: 'WelkomCtrl'
+      })
 
+      .state('Aanmelden', {
+          url: '/Aanmelden',
+          templateUrl: 'templates/Aanmelden.html',
+          controller: 'AanmeldenCtrl'
+      })
 
+      .state('Meldingen', {
+        url: '/Meldingen',
+        templateUrl: 'templates/Meldingen.html',
+        controller: 'MeldingenCtrl'
+      })
 
-      .state('meldingen', {
-    url: '/Meldingen',
-    templateUrl: 'templates/meldingen.html',
-    controller: 'meldingenCtrl'
-  })
+      .state('Melding', {
+          url: '/Melding/:ItemId',
+          templateUrl: 'templates/Melding.html',
+          controller: 'MeldingCtrl'
+      })
 
-  .state('aanmelden', {
-    url: '/Aanmelden',
-    templateUrl: 'templates/aanmelden.html',
-    controller: 'aanmeldenCtrl'
-  })
+      .state('CreateMelding', {
+        url: '/MeldingCreate',
+        templateUrl: 'templates/MeldingCreate.html',
+        controller: 'MeldingBewerkenCtrl'
+      })
 
-  .state('welkom', {
-    url: '/Welkom',
-    templateUrl: 'templates/welkom.html',
-    controller: 'welkomCtrl'
-  })
-
-  .state('melding', {
-    url: '/Melding/:ItemId',
-    templateUrl: 'templates/melding.html',
-    controller: 'meldingCtrl'
-  })
-
-  .state('nieuweMelding', {
-    url: '/Melden',
-    templateUrl: 'templates/nieuweMelding.html',
-    controller: 'nieuweMeldingCtrl'
-  })
+      .state('ModifyMelding', {
+        url: '/MeldingModify/:ItemId',
+        templateUrl: 'templates/MeldingModify.html',
+        controller: 'MeldingBewerkenCtrl'
+      })
 
   $urlRouterProvider.otherwise('/Welkom');
 

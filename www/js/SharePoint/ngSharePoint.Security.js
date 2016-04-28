@@ -206,6 +206,11 @@
         var Authenticate = function () {
 
             var deferred = $q.defer();
+
+            var location = document.createElement("a");
+            location.href = "https://" + Security.Endpoint;
+            _Hostname = location.hostname;
+
             GetBearerRealm().then(function(bearer){
                 //console.log(bearer);
             });
@@ -264,8 +269,9 @@
         Security.UpdateContextInfo = UpdateContextInfo;
         Security.Authenticate = Authenticate;
         Security.Authenticated = Authenticated;
-        Security.SetRealm = GetBearerRealm;
+        Security.GetBearerRealm = GetBearerRealm;
         Security.Endpoint = _Endpoint;
+        Security.Hostname = _Hostname;
         Security.ContextInfo = _ContextInfo;
         Security.CurrentUserProfile = _CurrentUserProfile;
         Security.CurrentUser = _CurrentUser;

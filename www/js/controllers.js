@@ -1,36 +1,49 @@
 angular.module('rapporteren.controllers', [])
 
-.controller('welkomCtrl', function($scope, SharePoint) {
+.controller('WelkomCtrl', function($scope, SharePoint) {
 
     $scope.$on('$ionicView.enter', function() {
         //$scope.Authenticated = SharePoint.Security.Authenticated;
 
         var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
+
         $scope.Authenticated = auth;
+        if(auth) {
+            SharePoint.Web().then(function (Web) {
+                $scope.Web = Web.Properties;
+            });
+        }
     });
 })
 
-.controller('aanmeldenCtrl', function($scope, $state, SharePoint) {
+.controller('AanmeldenCtrl', function($scope, $state, SharePoint) {
 
   $scope.loginData = {};
 
   $scope.Authenticate = function () {
-    var domain = SharePoint.Security.Endpoint;
-    SharePoint.Security.SetConfiguration($scope.loginData.username, $scope.loginData.password, domain).then(function () {
+      $scope.MessageHide = true;
+      $scope.Message = 'Nothing yet...';
 
-      SharePoint.Security.Authenticate().then(function () {
-        var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
-        //if(SharePoint.Security.Authenticated) {
-        if(auth) {
-          $state.go('welkom', {}, {reload: true});
-          //$state.go($state.current, {}, {reload: true});
-        }
+      var domain = SharePoint.Security.Endpoint;
+      SharePoint.Security.SetConfiguration($scope.loginData.username, $scope.loginData.password, domain).then(function () {
+
+          SharePoint.Security.Authenticate().then(function () {
+              $scope.Authenticated = (SharePoint.Security.CurrentUser !== null) ? true : false;
+              //if(SharePoint.Security.Authenticated) {
+              if ($scope.Authenticated) {
+                  $scope.Message = 'Succes, moving on...';
+                  $state.go('Welkom', {}, {reload: true});
+              }
+              else {
+                  $scope.Message = 'Aanmelden mislukt, controleer uw gegevens en probeer opnieuw.';
+                  $scope.MessageHide = false;
+              }
+          });
       });
-    });
   };
 })
 
-.controller('meldingenCtrl', function($scope, $state, SharePoint) {
+.controller('MeldingenCtrl', function($scope, $state, SharePoint) {
 
     try {
         $scope.$on('$ionicView.enter', function () {
@@ -38,7 +51,7 @@ angular.module('rapporteren.controllers', [])
                 Web.Lists('Meldingen').then(function (List) {
 
                     List.Items().then(function (Items) {
-                        console.log(Items);
+                        //console.log(Items);
 
                         //var results = Item.Fields[1].Choices.results;
                         $scope.Web = Web.Properties;
@@ -54,41 +67,95 @@ angular.module('rapporteren.controllers', [])
         console.log(error);
     }
 })
-.controller('meldingCtrl', function($scope, $stateParams, $state, SharePoint) {
 
-    console.log($stateParams.ItemId);
-    //console.log($state);
+.controller('MeldingCtrl', function($scope, $stateParams, $state, SharePoint, $ionicModal) {
+
+    //region File Modal
+
+    $ionicModal.fromTemplateUrl('file-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function(file) {
+        $scope.Current = file;
+        $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+        $scope.Current = undefined;
+        $scope.modal.hide();
+    };
+    // Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+    });
+
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+        // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+        // Execute action
+    });
+
+    //endregion
+
     try {
       $scope.$on('$ionicView.enter', function () {
-        SharePoint.Web().then(function (Web) {
-          Web.Lists('Meldingen').then(function (List) {
 
-            List.Items($stateParams.ItemId).then(function (Item) {
-                $scope.Web = Web.Properties;
-                $scope.Web.List = List.Properties;
-                $scope.Web.List.Item = Item.Properties;
-                Item.AttachmentFiles().then(function(Files){
-                    $scope.Web.List.Item.Files = Files;
-                });
-            });
+          SharePoint.Web().then(function (Web) {
+              Web.Lists('Meldingen').then(function (List) {
+                  List.Items($stateParams.ItemId).then(function (Item) {
+                      $scope.Web = Web.Properties;
+                      $scope.Web.List = List.Properties;
+                      $scope.Web.List.Item = Item;
+                      Item.AttachmentFiles().then(function (Files) {
+
+                          var Web_ServerRelativeUrl = Web.Properties.ServerRelativeUrl;
+
+                          $scope.Web.List.Item.Files = [];
+
+                          Files.forEach(function (file) {
+                              var File_ServerRelativeUrl = file.ServerRelativeUrl;
+                              File_ServerRelativeUrl = File_ServerRelativeUrl.replace(Web_ServerRelativeUrl, '');
+                              file.WebRelativeUrl = File_ServerRelativeUrl;
+                              $scope.Web.List.Item.Files.push(file);
+                          });
+                      });
+                  });
+              });
           });
-        });
       });
     }
     catch (error) {
       console.log(error);
     }
+
+
 })
 
-.controller('nieuweMeldingCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera) {
+.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera) {
 
     try
     {
       $scope.$on('$ionicView.enter', function() {
+          $scope.bijlage = {};
+          $scope.bijlage.een = { 'bsixfour' : undefined, 'uri' : 'img/icon.png' };
+          $scope.bijlage.twee = { 'bsixfour' : undefined, 'uri' : 'img/icon.png' };
+          $scope.bijlage.drie = { 'bsixfour' : undefined, 'uri' : 'img/icon.png' };
+
         SharePoint.Web().then(function (Web) {
           Web.Lists('Meldingen').then(function (List) {
 
-             List.Items(-1).then(function(Item){
+              var id = -1;
+              if(angular.isDefined($stateParams.ItemId)) {
+                  id = $stateParams.ItemId;
+              };
+
+             List.Items(id).then(function(Item){
              //List.Items('New').then(function(Item){
              $scope.Web = Web.Properties;
              $scope.Web.List = List.Properties;
@@ -104,10 +171,35 @@ angular.module('rapporteren.controllers', [])
     }
 
     $scope.Opslaan = function (Item) {
-        "use strict";
-        Item.Save().then(function (Item){
-            $scope.Web.List.Item = Item;
-        });
+        try {
+            Item.Save().then(function (Item) {
+
+                if ($scope.bijlage.een.bsixfour != undefined) {
+                    Item.AddFile('bijlage_een.png', $scope.bijlage.een.bsixfour).then(function (file) {
+
+                    });
+                }
+
+                if ($scope.bijlage.twee.bsixfour != undefined) {
+                    Item.AddFile('bijlage_twee.png', $scope.bijlage.twee.bsixfour).then(function (file) {
+
+                    });
+                }
+
+                if ($scope.bijlage.drie.bsixfour != undefined) {
+                    Item.AddFile('bijlage_drie.png', $scope.bijlage.drie.bsixfour).then(function (file) {
+
+                    });
+                }
+
+                $scope.Web.List.Item = Item;
+                $state.go('Meldingen', {}, {reload: true});
+            });
+        }
+        catch(error)
+        {
+            console.log(error);
+        }
     }
 
     $scope.OpslaanFoto = function (Item, Naam, bsixfour) {
@@ -122,7 +214,7 @@ angular.module('rapporteren.controllers', [])
         });
     }
 
-    $scope.takePhoto = function () {
+    $scope.takePhoto = function (name) {
         var options = {
             quality: 75,
             destinationType: Camera.DestinationType.DATA_URL,
@@ -136,8 +228,16 @@ angular.module('rapporteren.controllers', [])
         };
 
         $cordovaCamera.getPicture(options).then(function (imageData) {
-            $scope.bsixfour = imageData;
-            $scope.imgURI = "data:image/png;base64," + imageData;
+
+            if(name == 'een'){
+                $scope.bijlage.een = { 'bsixfour' : imageData, 'uri' : "data:image/png;base64," + imageData };
+            }
+            if(name == 'twee'){
+                $scope.bijlage.twee = { 'bsixfour' : imageData, 'uri' : "data:image/png;base64," + imageData};
+            }
+            if(name == 'drie'){
+                $scope.bijlage.drie = { 'bsixfour' : imageData, 'uri' : "data:image/png;base64," + imageData};
+            }
         }, function (err) {
             console.log(err);
             // An error occured. Show a message to the user

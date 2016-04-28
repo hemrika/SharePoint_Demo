@@ -489,7 +489,7 @@
                             var ows_row = jsonObj2.Envelope.Body.UpdateListItemsResponse.UpdateListItemsResult.Results.Result.row;
 
                             self.Fields.forEach(function (field) {
-                                console.log(field.EntityPropertyName);
+                                //console.log(field.EntityPropertyName);
                                 if ((angular.isDefined(self[field.EntityPropertyName])) && (angular.isDefined(ows_row["_ows_" + field.EntityPropertyName]))) {
                                     self[field.EntityPropertyName] = ows_row["_ows_" + field.EntityPropertyName];
                                 }
@@ -650,7 +650,7 @@
                             var ows_row = jsonObj2.Envelope.Body.UpdateListItemsResponse.UpdateListItemsResult.Results.Result.row;
 
                             self.Fields.forEach(function (field) {
-                                console.log(field.EntityPropertyName);
+                                //console.log(field.EntityPropertyName);
                                 if ((angular.isDefined(self[field.EntityPropertyName])) && (angular.isDefined(ows_row["_ows_" + field.EntityPropertyName]))) {
                                     self[field.EntityPropertyName] = ows_row["_ows_" + field.EntityPropertyName];
                                 }
@@ -737,84 +737,9 @@
                 return deferred.promise;
             };
 
-            //endregion
-
-            var self = this;
-            
-            //region Get ListItem by GUID or by Title ( case sensitive )
-
-            //var loadItem = function(identifier) {
+            var Fields = function() {
 
                 //var deferred = $q.defer();
-
-
-                //Is there a usable Identifier and determine if it is a existing or new Item that is requested.
-                var isId = false;
-                var isExisting = false;
-
-                if (angular.isDefined(identifier)) {
-                    isId = /^\d+$/.test(identifier);
-                    isExisting = (identifier > 0);
-                }
-
-                //Check if the previous requested item
-                if (ngSecurity.CurrentItem !== null) {
-                    if (isId) {
-                        //Only when currentItem Id is not the requested Id, update _ngItem;
-                        if (ngSecurity.CurrentItem.Id !== identifier) {
-
-                            if (isExisting) {
-                                _item.deferred({
-                                    EndPoint: ngSecurity.Endpoint,
-                                    List: ngSecurity.CurrentList.Properties.Id,
-                                    Item: identifier
-                                }).$promise.then(
-                                    function (data) {
-                                        _ngItem = data;
-                                        loadFields();
-                                    });
-                            }
-                            else {
-                                //Indicates a new Item
-                                _ngItem.Id = identifier;
-                                loadFields();
-                            }
-                        }
-                    }
-                }
-                else {
-                    //Newly not previously requested Item should be requested from SharePoint
-                    if (isId && isExisting) {
-                        _item.deferred({
-                            EndPoint: ngSecurity.Endpoint,
-                            List: ngSecurity.CurrentList.Properties.Id,
-                            Item: identifier
-                        }).$promise.then(
-                            function (data) {
-                                _ngItem = data;
-                                loadFields();
-                            });
-                    }
-                    else {
-                        //Indicates a new Item
-                        _ngItem.Id = identifier;
-                        loadFields();
-                    }
-                }
-
-                //return deferred.promise;
-            //};
-
-            //All properties should be loaded now.
-            //self.Properties = _ngItem;
-
-            //endregion
-
-            //region Fields
-
-           var loadFields = function() {
-
-               //var deferred = $q.defer();
 
                 var FormFields = [];
 
@@ -881,7 +806,88 @@
             };
             //endregion
 
-            loadItem(identifier);//.then(loadFields());
+            var self = this;
+            
+            //region Get ListItem by GUID or by Title ( case sensitive )
+
+            //var loadItem = function(identifier) {
+
+                //var deferred = $q.defer();
+
+
+                //Is there a usable Identifier and determine if it is a existing or new Item that is requested.
+                var isId = false;
+                var isExisting = false;
+
+                if (angular.isDefined(identifier)) {
+                    isId = /^\d+$/.test(identifier);
+                    isExisting = (identifier > 0);
+                }
+
+                //Check if the previous requested item
+                if (ngSecurity.CurrentItem !== null) {
+                    if (isId && isExisting) {
+                        //Only when currentItem Id is not the requested Id, update _ngItem;
+                        if (ngSecurity.CurrentItem.Id !== identifier) {
+
+                            if (isExisting) {
+                                _item.deferred({
+                                    EndPoint: ngSecurity.Endpoint,
+                                    List: ngSecurity.CurrentList.Properties.Id,
+                                    Item: identifier
+                                }).$promise.then(
+                                    function (data) {
+                                        _ngItem = data;
+                                        Fields();
+                                    });
+                            }
+                            else {
+                                //Indicates a new Item
+                                _ngItem.Id = identifier;
+                                Fields();
+                            }
+                        }
+                    }
+                    else {
+                        //Indicates a new Item
+                        _ngItem.Id = identifier;
+                        Fields();
+                    }
+                }
+                else {
+                    //Newly not previously requested Item should be requested from SharePoint
+                    if (isId && isExisting) {
+                        _item.deferred({
+                            EndPoint: ngSecurity.Endpoint,
+                            List: ngSecurity.CurrentList.Properties.Id,
+                            Item: identifier
+                        }).$promise.then(
+                            function (data) {
+                                _ngItem = data;
+                                Fields();
+                            });
+                    }
+                    else {
+                        //Indicates a new Item
+                        _ngItem.Id = identifier;
+                        Fields();
+                    }
+                }
+
+                //return deferred.promise;
+            //};
+
+            //All properties should be loaded now.
+            //self.Properties = _ngItem;
+
+            //endregion
+
+            //region Fields
+
+
+            //endregion
+
+            //loadItem(identifier);//.then(loadFields());
 
             return deferred.promise;
         };

@@ -58,5 +58,7 @@ iOS platform:
 Xcode 7.3
 Build version 7D175
 
+~/Library/Android/sdk/tools/android avd
+
 
 

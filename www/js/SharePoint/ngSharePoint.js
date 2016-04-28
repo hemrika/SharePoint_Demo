@@ -11,6 +11,10 @@
                 return ngSecurity.EndPoint;
             };
 
+            var Hostname = function () {
+                return ngSecurity.Hostname;
+            };
+
             var CurrentUser = function () {
                 return ngSecurity.CurrentUser;
             };
@@ -43,6 +47,7 @@
             SharePoint.Web = ngWeb;
             SharePoint.UserProfile = ngUserProfile;
             SharePoint.EndPoint = EndPoint;
+            SharePoint.Hostname = Hostname;
             SharePoint.CurrentUserProfile = CurrentUserProfile;
             SharePoint.CurrentUser = CurrentUser;
             SharePoint.CurrentWeb = CurrentWeb;

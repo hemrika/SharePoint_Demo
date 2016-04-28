@@ -1,0 +1,32 @@
+<ion-view style="" id="Meldingen" title="Meldingen">
+    <ion-content class="has-header" padding="true">
+        <form style="" class="list">
+            <div class="button-bar">
+                <a class="item item-avatar" ng-click="takePhoto('een')">
+                    <img ng-src="{{bijlage.een.uri}}" >
+                </a>
+                <a class="item item-avatar" ng-click="takePhoto('twee')">
+                    <img ng-src="{{bijlage.twee.uri}}" >
+                </a>
+                <a class="item item-avatar" ng-click="takePhoto('drie')">
+                    <img ng-src="{{bijlage.drie.uri}}" >
+                </a>
+            </div>
+            <!--
+            <button class="button button-energized  button-block button-outline icon-left ion-camera" ng-click="takePhoto()">
+                Neem Foto
+            </button>
+            <button class="button button-energized  button-block button-outline icon-right ion-images" ng-click="choosePhoto()">
+                Kies Foto
+            </button>
+            -->
+            <ion-list>
+              <ion-item ng-repeat="Field in Web.List.Item.Fields">
+                  <div data-ng-include="'templates/Formulier.html'"></div>
+              </ion-item>
+            </ion-list>
+            <button class="button button-clam  button-block button-outline icon-right ion-plus-round" data-ng-click="Opslaan(Web.List.Item)" id="melding_opslaan">Opslaan Melding</button>
+            <!-- <button class="button button-energized  button-block button-outline icon-left ion-alert-circled" data-ng-click="OpslaanFoto(Web.List.Item,'fotonaam.jpg',bsixfour)" id="melding_bestanden">Opslaan Foto</button> -->
+        </form>
+    </ion-content>
+</ion-view>

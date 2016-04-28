@@ -124,7 +124,7 @@
                 API.get({EndPoint: ngSecurity.Endpoint}).$promise.then(
                     function (data) {
                         _ngSite = data;
-                        self.Properties = _ngWeb;
+                        self.Properties = _ngSite;
                         ngSecurity.CurrentSite = self;
                         deferred.resolve(self);
                     });
