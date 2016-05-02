@@ -16,11 +16,29 @@ angular.module('rapporteren.controllers', [])
     });
 })
 
-.controller('AanmeldenCtrl', function($scope, $state, SharePoint) {
+.controller('AanmeldenCtrl', function($scope, $state, SharePoint, $cordovaPreferences, $cordovaProgress) {
 
   $scope.loginData = {};
 
+    $cordovaPreferences.fetch('username', 'loginData')
+        .success(function(value) {
+            $scope.loginData.username = value;
+        })
+        .error(function(error) {
+            alert("Error: " + error);
+        })
+
+    $cordovaPreferences.fetch('password', 'loginData')
+        .success(function(value) {
+            $scope.loginData.password = value;
+        })
+        .error(function(error) {
+            alert("Error: " + error);
+        })
+
   $scope.Authenticate = function () {
+
+      $cordovaProgress.showSimple(true);
       $scope.MessageHide = true;
       $scope.Message = 'Nothing yet...';
 
@@ -32,9 +50,24 @@ angular.module('rapporteren.controllers', [])
               //if(SharePoint.Security.Authenticated) {
               if ($scope.Authenticated) {
                   $scope.Message = 'Succes, moving on...';
-                  $state.go('Welkom', {}, {reload: true});
+
+                  $cordovaPreferences.store('username', $scope.loginData.username, 'loginData')
+                      .success(function(un) {
+                          $cordovaPreferences.store('password', $scope.loginData.password, 'loginData')
+                              .success(function(pw){
+                                  $cordovaProgress.hide();
+                                  $state.go('Welkom', {}, {reload: true});
+                              })
+                      })
+                      .error(function(error) {
+                          $cordovaProgress.hide();
+                          alert("Error: " + error);
+                      })
+
+
               }
               else {
+                  $cordovaProgress.hide();
                   $scope.Message = 'Aanmelden mislukt, controleer uw gegevens en probeer opnieuw.';
                   $scope.MessageHide = false;
               }
@@ -43,10 +76,11 @@ angular.module('rapporteren.controllers', [])
   };
 })
 
-.controller('MeldingenCtrl', function($scope, $state, SharePoint) {
+.controller('MeldingenCtrl', function($scope, $state, SharePoint, $cordovaProgress) {
 
     try {
         $scope.$on('$ionicView.enter', function () {
+            $cordovaProgress.showSimple(true);
             SharePoint.Web().then(function (Web) {
                 Web.Lists('Meldingen').then(function (List) {
 
@@ -57,6 +91,7 @@ angular.module('rapporteren.controllers', [])
                         $scope.Web = Web.Properties;
                         $scope.Web.List = List.Properties;
                         $scope.Web.List.Items = Items;
+                        $cordovaProgress.hide();
                     });
 
                 });
@@ -64,11 +99,12 @@ angular.module('rapporteren.controllers', [])
         });
     }
     catch (error) {
+        $cordovaProgress.hide();
         console.log(error);
     }
 })
 
-.controller('MeldingCtrl', function($scope, $stateParams, $state, SharePoint, $ionicModal) {
+.controller('MeldingCtrl', function($scope, $stateParams, $state, SharePoint, $ionicModal, $cordovaProgress) {
 
     //region File Modal
 
@@ -105,7 +141,7 @@ angular.module('rapporteren.controllers', [])
 
     try {
       $scope.$on('$ionicView.enter', function () {
-
+          $cordovaProgress.showSimple(true);
           SharePoint.Web().then(function (Web) {
               Web.Lists('Meldingen').then(function (List) {
                   List.Items($stateParams.ItemId).then(function (Item) {
@@ -115,6 +151,7 @@ angular.module('rapporteren.controllers', [])
                       Item.AttachmentFiles().then(function (Files) {
 
                           var Web_ServerRelativeUrl = Web.Properties.ServerRelativeUrl;
+                          $cordovaProgress.hide();
 
                           $scope.Web.List.Item.Files = [];
 
@@ -123,6 +160,7 @@ angular.module('rapporteren.controllers', [])
                               File_ServerRelativeUrl = File_ServerRelativeUrl.replace(Web_ServerRelativeUrl, '');
                               file.WebRelativeUrl = File_ServerRelativeUrl;
                               $scope.Web.List.Item.Files.push(file);
+                              $cordovaProgress.hide();
                           });
                       });
                   });
@@ -131,47 +169,51 @@ angular.module('rapporteren.controllers', [])
       });
     }
     catch (error) {
+        $cordovaProgress.hide();
       console.log(error);
     }
 
 
 })
 
-.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera) {
+.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera, $cordovaProgress) {
 
-    try
-    {
-      $scope.$on('$ionicView.enter', function() {
-          $scope.bijlage = {};
-          $scope.bijlage.een = { 'bsixfour' : undefined, 'uri' : 'img/icon.png' };
-          $scope.bijlage.twee = { 'bsixfour' : undefined, 'uri' : 'img/icon.png' };
-          $scope.bijlage.drie = { 'bsixfour' : undefined, 'uri' : 'img/icon.png' };
+    try {
+        $scope.$on('$ionicView.enter', function () {
+            $cordovaProgress.showSimple(true);
+            $scope.bijlage = {};
+            $scope.bijlage.een = {'bsixfour': undefined, 'uri': 'img/icon.png'};
+            $scope.bijlage.twee = {'bsixfour': undefined, 'uri': 'img/icon.png'};
+            $scope.bijlage.drie = {'bsixfour': undefined, 'uri': 'img/icon.png'};
 
-        SharePoint.Web().then(function (Web) {
-          Web.Lists('Meldingen').then(function (List) {
+            SharePoint.Web().then(function (Web) {
+                Web.Lists('Meldingen').then(function (List) {
 
-              var id = -1;
-              if(angular.isDefined($stateParams.ItemId)) {
-                  id = $stateParams.ItemId;
-              };
+                    var id = -1;
+                    if (angular.isDefined($stateParams.ItemId)) {
+                        id = $stateParams.ItemId;
+                    }
+                    ;
 
-             List.Items(id).then(function(Item){
-             //List.Items('New').then(function(Item){
-             $scope.Web = Web.Properties;
-             $scope.Web.List = List.Properties;
-             $scope.Web.List.Item = Item;
-             });
-          });
+                    List.Items(id).then(function (Item) {
+                        //List.Items('New').then(function(Item){
+                        $scope.Web = Web.Properties;
+                        $scope.Web.List = List.Properties;
+                        $scope.Web.List.Item = Item;
+                        $cordovaProgress.hide();
+                    });
+                });
+            });
         });
-      });
     }
-    catch(error)
-    {
-      console.log(error);
+    catch (error) {
+        $cordovaProgress.hide();
+        console.log(error);
     }
 
     $scope.Opslaan = function (Item) {
         try {
+            $cordovaProgress.showSimple(true);
             Item.Save().then(function (Item) {
 
                 if ($scope.bijlage.een.bsixfour != undefined) {
@@ -193,23 +235,25 @@ angular.module('rapporteren.controllers', [])
                 }
 
                 $scope.Web.List.Item = Item;
+                $cordovaProgress.hide();
                 $state.go('Meldingen', {}, {reload: true});
             });
         }
-        catch(error)
-        {
+        catch (error) {
+            $cordovaProgress.hide();
             console.log(error);
         }
     }
 
     $scope.OpslaanFoto = function (Item, Naam, bsixfour) {
 
+        $cordovaProgress.showSimple(true)
         Item.AddFile(Naam, bsixfour).then(function (file) {
             console.log(file);
             //SharePoint.GetFileByServerRelativeUrl(SharePoint.ServerRelativeUrl() + "/" + file).then(function(data){
-                //bsixfour = btoa(data);
-                //$scope.bsixfour = SharePoint.Url()+ data.ServerRelativeUrl;
-                //console.log(data);
+            //bsixfour = btoa(data);
+            //$scope.bsixfour = SharePoint.Url()+ data.ServerRelativeUrl;
+            //console.log(data);
             //});
         });
     }
@@ -219,7 +263,7 @@ angular.module('rapporteren.controllers', [])
             quality: 75,
             destinationType: Camera.DestinationType.DATA_URL,
             sourceType: Camera.PictureSourceType.CAMERA,
-            allowEdit: true,
+            allowEdit: false,
             encodingType: Camera.EncodingType.PNG,
             targetWidth: 300,
             targetHeight: 300,
@@ -229,14 +273,14 @@ angular.module('rapporteren.controllers', [])
 
         $cordovaCamera.getPicture(options).then(function (imageData) {
 
-            if(name == 'een'){
-                $scope.bijlage.een = { 'bsixfour' : imageData, 'uri' : "data:image/png;base64," + imageData };
+            if (name == 'een') {
+                $scope.bijlage.een = {'bsixfour': imageData, 'uri': "data:image/png;base64," + imageData};
             }
-            if(name == 'twee'){
-                $scope.bijlage.twee = { 'bsixfour' : imageData, 'uri' : "data:image/png;base64," + imageData};
+            if (name == 'twee') {
+                $scope.bijlage.twee = {'bsixfour': imageData, 'uri': "data:image/png;base64," + imageData};
             }
-            if(name == 'drie'){
-                $scope.bijlage.drie = { 'bsixfour' : imageData, 'uri' : "data:image/png;base64," + imageData};
+            if (name == 'drie') {
+                $scope.bijlage.drie = {'bsixfour': imageData, 'uri': "data:image/png;base64," + imageData};
             }
         }, function (err) {
             console.log(err);
@@ -249,7 +293,7 @@ angular.module('rapporteren.controllers', [])
             quality: 75,
             destinationType: Camera.DestinationType.DATA_URL,
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            allowEdit: true,
+            allowEdit: false,
             encodingType: Camera.EncodingType.PNG,
             targetWidth: 300,
             targetHeight: 300,

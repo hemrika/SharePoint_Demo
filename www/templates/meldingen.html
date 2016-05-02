@@ -1,12 +1,12 @@
-<ion-view style="background-color: rgb(255, 255, 255);" id="Meldingen" title="Meldingen">
-    <ion-content class="has-header has-footer" padding="true">
-        <h1 style="color: rgb(0, 0, 0);" id="meldingen-heading1">Meldingen</h1>
-        <a class="button button-energized  button-block button-outline icon-right ion-alert-circled" id="meldingen-button8" ui-sref="nieuweMelding">Nieuwe Melding</a>
-        <ion-list style="">
-            <ion-item ng-repeat="item in Web.List.Items" ui-sref="melding({ItemId: item.Id})" class="item-thumbnail-left">
-                <img>
+<ion-view id="Meldingen" title="Meldingen" class="background">>
+    <ion-content class="has-header" padding="true" style="background: url(img/blaud_light_logo.png) no-repeat center;background-size:cover;">
+        <a class="button button-blaud  button-block icon-right ion-plus-round" id="meldingen-button8" ui-sref="CreateMelding"> Nieuwe Melding </a>
+        <ion-list style="list-calm">
+            <ion-item ng-repeat="item in Web.List.Items" ui-sref="Melding({ItemId: item.Id})" class="item item-icon-left blaud">
+                <i class="icon fa {{item.Soort}} {{item.Urgentie}} fa-lg fa-fw"></i>
                 <h2>{{item.Onderwerp}}</h2>
-                <p>{{item.Urgentie}}</p>
+                <span class="subdued item-left " style="color: rgb(242, 132, 35);">{{item.Datum | date:'longDate'}}</span><br/>
+                <span class="subdued item-left" style="color: rgb(242, 132, 35);">{{item.Situatie | limitTo : 256 : 0}}</span>
             </ion-item>
         </ion-list>
     </ion-content>

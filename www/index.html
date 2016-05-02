@@ -27,6 +27,7 @@
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
     <script src="lib/angular-resource/angular-resource.js"></script>
     <script src="js/SharePoint/ngSharePoint.js"></script>
@@ -49,13 +50,13 @@
     -->
 
   </head>
-  <body ng-app="rapporteren" animation="slide-left-right-ios7">
-  <div style="">
-    <div style="">
-        <ion-nav-bar class="bar bar-header bar-calm">
-            <ion-nav-back-button class="button-icon icon ion-ios-arrow-back"> Terug </ion-nav-back-button>
-        </ion-nav-bar>
-        <ion-nav-view id="index"></ion-nav-view>
+  <body ng-app="rapporteren" class="background">
+  <div>
+    <div>
+        <ion-nav-bar class="bar bar-header blaud" align-title="center">
+            <ion-nav-back-button class="button-icon icon ion-reply light"> Terug </ion-nav-back-button>
+      </ion-nav-bar>
+        <ion-nav-view id="index" class="background"></ion-nav-view>
     </div>
 </div>
   </body>

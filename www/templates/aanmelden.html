@@ -1,7 +1,7 @@
-<ion-view style="" id="Aanmelden" title="Aanmelden">
-    <ion-content class="has-header" padding="true">
-        <form style="" class="list" ng-submit="Authenticate()">
-            <ion-list style="">
+<ion-view id="Aanmelden" title="Aanmelden" class="background">
+    <ion-content class="has-header" padding="true" style="background: url(img/blaud_light_logo.png) no-repeat center;background-size:cover;">
+        <!-- <form style="" class="list list-inset" ng-submit="Authenticate()"> -->
+            <ion-list style="" class="list list-inset">
                 <label style="" name="username" class="item item-input">
                     <span class="input-label">Gebruiker</span>
                     <input placeholder="uw email adres" type="email" ng-model="loginData.username">
@@ -11,8 +11,9 @@
                     <input placeholder="uw wachtwoord" type="password" ng-model="loginData.password">
                 </label>
             </ion-list>
-            <div style="height: 40px;" class="spacer"></div>
-            <button class="button button-energized  button-block icon-right ion-person" id="aanmelden-button1" type="submit">Aanmelden</button>
-        </form>
+        <!-- </form> -->
+        <button class="button button-blaud  button-block icon-right ion-person" id="aanmelden-button1" type="submit" ng-click="Authenticate()">Aanmelden</button>
+        <div style="height: 10px;" class="spacer"></div>
+        <div ng-hide="MessageHide" >{{Message}}</div>
     </ion-content>
 </ion-view>

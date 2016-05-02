@@ -1,0 +1,150 @@
+.background{
+    background: rgb(69, 159, 224);
+    background: -moz-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(73,155,234,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(69, 159, 224,1)), color-stop(45%, rgba(32,124,229,1)), color-stop(100%, rgba(69, 159, 224,1)));
+    background: -webkit-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
+    background: -o-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
+    background: -ms-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
+    background: linear-gradient(to right, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#499bea', GradientType=1 );
+}
+
+.loginBg{
+
+    background: rgb(69, 159, 224);
+    background: -moz-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(73,155,234,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(69, 159, 224,1)), color-stop(45%, rgba(32,124,229,1)), color-stop(100%, rgba(69, 159, 224,1)));
+    background: -webkit-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
+    background: -o-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
+    background: -ms-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
+    background: linear-gradient(to right, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#499bea', GradientType=1 );
+
+}
+
+.appButton { background: rgb(242, 132, 35);}
+.app-logo{ max-width:100px; margin:auto; background-repeat:no-repeat;background-position:center;}
+.top-content { padding-top: 10vh;  text-align: center;   }
+.loginButton{ padding-bottom:0px;}
+.remvoeBP{ padding-bottom:0px;}
+.removePM{ margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; }
+
+#menuLinks .list .item{ border-color:#479CF7;}
+#menuLinks .list .item a{ background:#387EF5; color:#fff;}
+
+.blaud {
+    background: rgb(242, 132, 35);
+    color: #fff;
+}
+
+.BlaudBlue {
+    color : rgb(69, 159, 224);
+}
+
+.BlaudOrange {
+    color: rgb(242, 132, 35);
+}
+
+.Compliment:before {
+    content: "\f087";
+    font-family: FontAwesome;
+    text-decoration: none;
+}
+
+.Verbetervoorstel:before {
+    content: "\f234";
+    font-family: FontAwesome;
+    text-decoration: none;
+}
+
+.Schaderegistratie:before {
+    content:  "\f127";
+    font-family: FontAwesome;
+    text-decoration: none;
+}
+
+.Schaderegistratie.Hoog {
+    border-color: red;
+    color: red;
+}
+
+.Schaderegistratie.Middel {
+    border-color: orange;
+    color: orange;
+}
+
+.Schaderegistratie.Laag {
+    border-color: dodgerblue;
+    color: dodgerblue;
+}
+
+.Verbetervoorstel.Hoog {
+    border-color: red;
+    color: red;
+}
+
+.Verbetervoorstel.Middel {
+    border-color: orange;
+    color: orange;
+}
+
+.Verbetervoorstel.Laag {
+    border-color: dodgerblue;
+    color: dodgerblue;
+}
+
+
+.Compliment.Hoog {
+    border-color: green;
+    color: green;
+}
+
+.Compliment.Middel {
+    border-color: orange;
+    color: orange;
+}
+
+.Compliment.Laag {
+    border-color: dodgerblue;
+    color: dodgerblue;
+}
+
+.button.button-blaud {
+    border-color: transparent;
+    background-color: #F28423;
+    color: #fff; }
+.button.button-blaud:hover {
+    color: #fff;
+    text-decoration: none; }
+.button.button-blaud.active, .button.button-calm.activated {
+    background-color: #F28423; }
+.button.button-blaud.button-clear {
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+    color: #F28423; }
+.button.button-blaud.button-icon {
+    border-color: transparent;
+    background: none; }
+.button.button-blaud.button-outline {
+    border-color: #F28423;
+    background: transparent;
+    color: #11c1f3; }
+.button.button-blaud.button-outline.active, .button.button-blaud.button-outline.activated {
+    background-color: #F28423;
+    box-shadow: none;
+    color: #fff; }
+
+.toggle-small .toggle-blaud input:checked + .track {
+    background-color: rgba(69, 159, 224, 0.5); }
+
+.toggle-small .toggle-blaud input:checked + .track .handle {
+    background-color: #F28423; }
+
+.toggle.toggle-blaud input:checked + .track {
+    border-color: #F28423;
+    background-color: rgb(69, 159, 224); }
+
+.toggle.toggle-blaud input:checked + .track {
+    border-color: #F28423;
+    background-color: rgb(69, 159, 224); }

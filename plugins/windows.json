@@ -30,6 +30,15 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "Rapporteren"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "Rapporteren"
+        },
+        "cordova-plugin-app-preferences": {
+            "PACKAGE_NAME": "Rapporteren"
+        },
+        "org.pbernasconi.progressindicator": {
+            "PACKAGE_NAME": "Rapporteren"
         }
     },
     "dependent_plugins": {}

@@ -446,6 +446,11 @@
                     var self = this;
                     self.Fields.forEach(function (field) {
                         if (field.Value !== self.Properties[field.EntityPropertyName]) {
+                            if(field.FieldTypeKind === 4){
+                                var date = new Date(field.Value);
+                                field.Value = date.toISOString();
+                            }
+
                             Envelope.push('<Field Name="' + field.EntityPropertyName + '">' + field.Value + '</Field>');
                         }
                         //console.log(field);
@@ -569,7 +574,7 @@
                         var ows_row = jsonObj2.Envelope.Body.UpdateListItemsResponse.UpdateListItemsResult.Results.Result.row;
 
                         self.Fields.forEach(function (field) {
-                            console.log(field.EntityPropertyName);
+                            //console.log(field.EntityPropertyName);
                             if ((angular.isDefined(self[field.EntityPropertyName])) && (angular.isDefined(ows_row["_ows_" + field.EntityPropertyName]))) {
                                 self[field.EntityPropertyName] = ows_row["_ows_" + field.EntityPropertyName];
                             }
@@ -607,6 +612,11 @@
                     var self = this;
                     self.Fields.forEach(function (field) {
                         if (field.Value !== self.Properties[field.EntityPropertyName]) {
+                            if(field.FieldTypeKind === 4){
+                                var date = new Date(field.Value);
+                                field.Value = date.toISOString();
+                            }
+
                             Envelope.push('<Field Name="' + field.EntityPropertyName + '">' + field.Value + '</Field>');
                         }
                         //console.log(field);

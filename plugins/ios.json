@@ -30,6 +30,15 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.blaud.rapporteren"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.blaud.rapporteren"
+        },
+        "cordova-plugin-app-preferences": {
+            "PACKAGE_NAME": "com.blaud.rapporteren"
+        },
+        "org.pbernasconi.progressindicator": {
+            "PACKAGE_NAME": "com.blaud.rapporteren"
         }
     },
     "dependent_plugins": {}

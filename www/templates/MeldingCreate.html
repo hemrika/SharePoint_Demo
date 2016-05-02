@@ -1,17 +1,12 @@
-<ion-view style="" id="Meldingen" title="Meldingen">
-    <ion-content class="has-header" padding="true">
+<ion-view id="Meldingen" title="Melden" class="background">>
+    <ion-content class="has-header" padding="true" style="background: url(img/blaud_light_logo.png) no-repeat center;background-size:cover;">
         <form style="" class="list">
             <div class="button-bar">
-                <a class="item item-avatar" ng-click="takePhoto('een')">
-                    <img ng-src="{{bijlage.een.uri}}" >
-                </a>
-                <a class="item item-avatar" ng-click="takePhoto('twee')">
-                    <img ng-src="{{bijlage.twee.uri}}" >
-                </a>
-                <a class="item item-avatar" ng-click="takePhoto('drie')">
-                    <img ng-src="{{bijlage.drie.uri}}" >
-                </a>
+                <button class="button button-blaud  button-block icon ion-android-add-circle" id="een" ng-click="takePhoto('een')"><div class="item item-avatar"><img ng-src="{{bijlage.een.uri}}" class="item item-avatar" ></div> </button>
+                <button class="button button-blaud  button-block icon ion-android-add-circle" id="twee" ng-click="takePhoto('twee')"><div class="item item-avatar"><img ng-src="{{bijlage.twee.uri}}" class="item item-avatar" ></div> </button>
+                <button class="button button-blaud  button-block icon ion-android-add-circle" id="drie" ng-click="takePhoto('drie')"><div class="item item-avatar"><img ng-src="{{bijlage.drie.uri}}" class="item item-avatar"></div> </button>
             </div>
+
             <!--
             <button class="button button-energized  button-block button-outline icon-left ion-camera" ng-click="takePhoto()">
                 Neem Foto
@@ -25,7 +20,7 @@
                   <div data-ng-include="'templates/Formulier.html'"></div>
               </ion-item>
             </ion-list>
-            <button class="button button-clam  button-block button-outline icon-right ion-plus-round" data-ng-click="Opslaan(Web.List.Item)" id="melding_opslaan">Opslaan Melding</button>
+            <button class="button button-blaud  button-block icon-right ion-plus-round" data-ng-click="Opslaan(Web.List.Item)" id="melding_opslaan">Opslaan Melding</button>
             <!-- <button class="button button-energized  button-block button-outline icon-left ion-alert-circled" data-ng-click="OpslaanFoto(Web.List.Item,'fotonaam.jpg',bsixfour)" id="melding_bestanden">Opslaan Foto</button> -->
         </form>
     </ion-content>

@@ -1,18 +1,13 @@
-<ion-view style="" id="Welkom" title="Welkom">
-    <ion-content class="has-header" padding="true">
-        <div style="" class="list card">
-            <div class="item item-divider">Rapporteren</div>
+<ion-view id="Welkom" title="Apps voor SharePoint" class="background">
+    <ion-content class="has-header" padding="true" style="background: url(img/blaud_light_logo.png) no-repeat center;background-size:cover;">
+        <div style="" class="list card blaud">
+            <div class="item item-divider calm">Lorem Ipsum</div>
             <div class="item item-body">
-                <div style="color: rgb(0, 0, 0);" id="welkom-markdown1">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare neque id tempor rhoncus. Etiam non metus eu mi venenatis consequat. Praesent faucibus sed lorem at auctor. Duis rutrum metus malesuada eros iaculis, non blandit mauris
-                        placerat. Ut non ligula nunc. Curabitur nulla sem, pretium ac tempor et, blandit in metus. Sed sed felis consectetur, iaculis turpis id, sollicitudin urna.</p>
-                </div>
+                <p>Lorem ipsum</p>
             </div>
         </div>
-        <div style="" class="button-bar">
-            <button class="button button-energized  button-block button-outline icon-left ion-person" id="welkom-button5" ui-sref="aanmelden" ng-disabled="Authenticated" >Aanmelden</button>
-            <button class="button button-energized  button-block button-outline icon-right ion-alert-circled" id="welkom-button6" ui-sref="meldingen" ng-disabled="!Authenticated">Meldingen</button>
-        </div>
-      <p>Title is {{Web.List.Title}}</p>
+        <button class="button button-blaud  button-block icon-right ion-person" id="aanmelden" ui-sref="Aanmelden" ng-disabled="Authenticated">Aanmelden</button>
+        <button class="button button-blaud  button-block icon-right ion-navicon-round" id="meldingen" ui-sref="Meldingen" ng-disabled="!Authenticated">Meldingen</button>
+        <button class="button button-blaud  button-block icon-right ion-plus-round" id="melding" ui-sref="CreateMelding" ng-disabled="!Authenticated"> Nieuwe Melding </button>
     </ion-content>
 </ion-view>
