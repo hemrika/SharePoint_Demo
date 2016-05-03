@@ -1,50 +1,81 @@
+
+.backgroundWelcome {
+    height: 100% !important;
+    background:   url('../img/e-office_floor_person.jpg')no-repeat !important;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+.item-image img:first-child {
+    position: relative;
+    width: 60vw !important;
+    left: calc(-50vw + 50%);
+}
+
+.item-image-logo img:first-child {
+    position: fixed;
+    width: 100vw !important;
+    left: calc(-50vw + 50%);
+    bottom: 5%;
+    opacity: 0.8;
+}
+
 .background{
-    background: rgb(69, 159, 224);
-    background: -moz-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(73,155,234,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(69, 159, 224,1)), color-stop(45%, rgba(32,124,229,1)), color-stop(100%, rgba(69, 159, 224,1)));
-    background: -webkit-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
-    background: -o-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
-    background: -ms-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
-    background: linear-gradient(to right, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#499bea', GradientType=1 );
-}
 
-.loginBg{
-
-    background: rgb(69, 159, 224);
-    background: -moz-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(73,155,234,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(69, 159, 224,1)), color-stop(45%, rgba(32,124,229,1)), color-stop(100%, rgba(69, 159, 224,1)));
-    background: -webkit-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
-    background: -o-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
-    background: -ms-linear-gradient(left, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
-    background: linear-gradient(to right, rgba(69, 159, 224,1) 0%, rgba(32,124,229,1) 45%, rgba(69, 159, 224,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#499bea', GradientType=1 );
+    background: rgba(154,212,239,1);
+    background: -moz-linear-gradient(top, rgba(154,212,239,1) 0%, rgba(53,172,227,1) 50%, rgba(11,38,50,1) 100%);
+    background: -webkit-gradient(linear,left top, left bottom, color-stop(0%, rgba(154,212,239,1)), color-stop(50%, rgba(53,172,227,1)), color-stop(100%, rgba(11,38,50,1)));
+    background: -webkit-linear-gradient(top, rgba(154,212,239,1) 0%, rgba(53,172,227,1) 50%, rgba(11,38,50,1) 100%);
+    background: -o-linear-gradient(top, rgba(154,212,239,1) 0%, rgba(53,172,227,1) 50%, rgba(11,38,50,1) 100%);
+    background: -ms-linear-gradient(top, rgba(154,212,239,1) 0%, rgba(53,172,227,1) 50%, rgba(11,38,50,1) 100%);
+    background: linear-gradient(to bottom, rgba(154,212,239,1) 0%, rgba(53,172,227,1) 50%, rgba(11,38,50,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9ad4ef', endColorstr='#0b2632', GradientType=0 );
 
 }
 
-.appButton { background: rgb(242, 132, 35);}
-.app-logo{ max-width:100px; margin:auto; background-repeat:no-repeat;background-position:center;}
-.top-content { padding-top: 10vh;  text-align: center;   }
-.loginButton{ padding-bottom:0px;}
-.remvoeBP{ padding-bottom:0px;}
-.removePM{ margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; }
+.loading{
+    background-color: rgba(154,212,239, 0.7) !important;
+}
 
-#menuLinks .list .item{ border-color:#479CF7;}
-#menuLinks .list .item a{ background:#387EF5; color:#fff;}
+.spinner.light svg {
+    stroke: #fff !important;
+    fill: #fff !important;
+}
 
 .blaud {
-    background: rgb(242, 132, 35);
+    background: rgb(53, 173, 227);
     color: #fff;
 }
 
 .BlaudBlue {
-    color : rgb(69, 159, 224);
+    color : rgb(53, 173, 227);
 }
 
 .BlaudOrange {
-    color: rgb(242, 132, 35);
+    color: rgb(247, 103, 31);
+
 }
 
+.BlaudBlueBackground {
+    background: rgb(53, 173, 227);
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.BlaudOrangeBackground {
+    background: rgb(247, 103, 31);
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.BlaudGreyBackground {
+    background: rgb(55, 55, 55);
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 .Compliment:before {
     content: "\f087";
     font-family: FontAwesome;
@@ -109,29 +140,56 @@
     color: dodgerblue;
 }
 
+.blaud-camera-button {
+    min-height: 90px;
+}
+
+.blaud-camera-button img {
+    width: 90%;
+    vertical-align: bottom;
+    min-height: 90px;
+    padding: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+}
+
 .button.button-blaud {
     border-color: transparent;
-    background-color: #F28423;
-    color: #fff; }
+    background-color: rgb(247, 103, 31);
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/*
+.button.disabled,
+.button[disabled].button-blaud {
+    opacity: .1;
+    cursor: default !important;
+    pointer-events: none;
+    background: #0B2632;
+}
+*/
+
 .button.button-blaud:hover {
     color: #fff;
     text-decoration: none; }
-.button.button-blaud.active, .button.button-calm.activated {
-    background-color: #F28423; }
+.button.button-blaud.active, .button.button-blaud.activated {
+    background-color: rgb(247, 103, 31); }
 .button.button-blaud.button-clear {
     border-color: transparent;
     background: none;
     box-shadow: none;
-    color: #F28423; }
+    color: rgb(247, 103, 31); }
 .button.button-blaud.button-icon {
     border-color: transparent;
     background: none; }
 .button.button-blaud.button-outline {
-    border-color: #F28423;
+    border-color: rgb(247, 103, 31);
     background: transparent;
-    color: #11c1f3; }
+    color: #fff; }
 .button.button-blaud.button-outline.active, .button.button-blaud.button-outline.activated {
-    background-color: #F28423;
+    background-color: rgb(247, 103, 31);
     box-shadow: none;
     color: #fff; }
 
@@ -139,12 +197,72 @@
     background-color: rgba(69, 159, 224, 0.5); }
 
 .toggle-small .toggle-blaud input:checked + .track .handle {
-    background-color: #F28423; }
+    background-color: rgb(53, 173, 227); }
 
 .toggle.toggle-blaud input:checked + .track {
-    border-color: #F28423;
+    border-color: rgb(247, 103, 31);;
     background-color: rgb(69, 159, 224); }
 
 .toggle.toggle-blaud input:checked + .track {
-    border-color: #F28423;
+    border-color: rgb(247, 103, 31);;
     background-color: rgb(69, 159, 224); }
+
+.item-blaud {
+    border-width: 0px !important;
+    background-color: transparent !important;
+}
+.item-blaud.item {
+    border-width: 0px !important;
+    border-style: none !important;
+    background-color: transparent !important;
+}
+.item-blaud input {
+    padding-left: 16px !important;
+}
+
+.item-blaud textarea {
+    padding-left: 16px !important;
+}
+
+.item-input {
+    padding: 0px !important;
+}
+
+.input-label {
+    padding-left: 10px !important;
+}
+
+/*Disabling platform specific tweaks */
+.platform-ios.platform-cordova:not(.fullscreen) .bar-header
+{
+    height: 44px !important;
+}
+.platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader)
+{
+    height: 44px !important;
+}
+
+.platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper
+{
+    margin-top: 0px !important;
+}
+
+.platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > *
+{
+    margin-top: 0px !important;
+}
+
+.platform-ios.platform-cordova:not(.fullscreen) .tabs-top > .tabs, .platform-ios.platform-cordova:not(.fullscreen) .tabs.tabs-top
+{
+    top: 44px !important;
+}
+
+.platform-ios.platform-cordova:not(.fullscreen) .has-header, .platform-ios.platform-cordova:not(.fullscreen) .bar-subheader
+{
+    top: 44px !important;
+}
+
+.platform-ios.platform-cordova:not(.fullscreen) .has-subheader {
+    top: 88px !important;
+}
+

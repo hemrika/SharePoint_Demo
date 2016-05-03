@@ -1,16 +1,42 @@
-<ion-view style="" id="Melding" title="Melding">
-    <ion-content class="has-header has-footer" padding="true">
-
-        <ion-list style="">
-            {{Web.List.Item}}
-            urgentie: {{Web.List.Item.Urgentie}}
-            <p ng-bind="Web.List.Item.Urgentie"></p>
-
-            <ion-item ng-repeat="file in Web.List.Item.Files" class="item-thumbnail-left">
-                <h2>{{file.FileName}}</h2>
-                url: {{Web.Url}}{{file.ServerRelativeUrl}}
-                <img ng-src="{{Web.Url}}{{file.ServerRelativeUrl}}">
-            </ion-item>
-        </ion-list>
+<ion-view id="Melding" title="Melding" class="background">>
+    <ion-content class="has-header" padding="true">
+        <div class="list card">
+            <div class="item item-icon-left item-button-right">
+                <i class="icon fa {{Web.List.Item.Properties.Soort}} {{Web.List.Item.Properties.Urgentie}} fa-lg fa-fw"></i>
+                <h1>{{Web.List.Item.Properties.Onderwerp}}</h1>
+                <p>{{Web.List.Item.Properties.Datum | date:'longDate'}}</p>
+                <!-- <button ui-sref="ModifyMelding/({ItemId: Web.List.Item.Id})" class="-align-right"><i class="icon ion-edit"></i></button> -->
+            </div>
+            <div class="item item-body">
+                <ion-list>
+                    <ion-item ng-repeat="Field in Web.List.Item.Fields">
+                        <h2 class="BlaudBlue">{{Field.Title}}</h2>
+                        <p class="Blaudorange">{{Web.List.Item.Properties[Field.Title]}}</p>
+                    </ion-item>
+                </ion-list>
+                <!--
+                <h2 class="BlaudBlue">Situatie</h2>
+                 {{Web.List.Item.Properties.Situatie}}</p><br/>
+                <h2 class="BlaudBlue">Oplossing</h2>
+                <p class="Blaudorange">{{Web.List.Item.Properties.Oplossing}}</p><br/>
+                -->
+                <h2 class="BlaudBlue">Bijlage(n)</h2>
+                <ion-item ng-repeat="file in Web.List.Item.Files" class="item item-thumbnail-left" ng-hide="!Web.List.Item.Properties.Attachments">
+                    <img ng-src="{{Web.Url}}{{file.WebRelativeUrl}}" ng-click="openModal(file)" style="display: flex;align-items: center;justify-content: center;width: auto; height: auto;">
+                    <h2 class="BlaudBlue">{{file.FileName}}</h2>
+                </ion-item>
+                <ion-item ng-hide="Web.List.Item.Properties.Attachments"><h2 class="BlaudBlue"> Geen bijlagen</h2></ion-item>
+            </div>
+        </div>
     </ion-content>
+    <script id="file-modal.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar bar-header blaud" align-title="center">
+                <button class="button-icon icon fa fa-arrow-circle-left fa-lg light" ng-click="closeModal()"> Terug </button>
+            </ion-header-bar>
+            <ion-scroll class="has-header" zooming="true" direction="xy" style="height:100vh;" >
+            <img ng-src="{{Web.Url}}{{Current.WebRelativeUrl}}" style="display: flex;align-items: center;justify-content: center;width: auto; height: auto;">
+            </ion-scroll>
+        </ion-modal-view>
+    </script>
 </ion-view>

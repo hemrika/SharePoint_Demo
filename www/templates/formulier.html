@@ -1,35 +1,48 @@
 <div data-ng-switch='Field.FieldTypeKind' ng-hide="Field.Hidden">
     <!-- Integer -->
     <span data-ng-switch-when='1'>
-        <label class="item item-input item-stacked-label">
-            <span class="input-label BlaudBlue">{{Field.Title}}</span>
+        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+            <div class="item item-divider BlaudOrangeBackground">
+                {{Field.Title}}
+            </div>
+            <!-- <span class="input-label BlaudBlue">{{Field.Title}}</span> -->
             <input type="number" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}">
         </label>
     </span>
     <!-- Text -->
     <span data-ng-switch-when='2'>
-        <label class="item item-input item-stacked-label">
-            <span class="input-label BlaudBlue">{{Field.Title}}</span>
+        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+            <div class="item item-divider BlaudOrangeBackground">
+                {{Field.Title}}
+            </div>
+            <!--<span class="input-label BlaudBlue">{{Field.Title}}</span> -->
             <input type="text"  name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}">
         </label>
     </span>
     <!-- Note -->
     <span data-ng-switch-when='3'>
-         <label class="item item-input item-stacked-label">
-             <span class="input-label BlaudBlue">{{Field.Title}}</span>
+         <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+             <div class="item item-divider BlaudOrangeBackground">
+                 {{Field.Title}}
+             </div>
+             <!-- <span class="input-label BlaudBlue">{{Field.Title}}</span> -->
              <textarea name="{{Field.InternalName}}" rows="{{Field.NumberOfLines}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}"></textarea>
          </label>
     </span>
     <!-- DateTime -->
     <span data-ng-switch-when='4'>
-        <label class="item item-input item-stacked-label">
-            <span class="input-label BlaudBlue">{{Field.Title}}</span>
+        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+            <div class="item item-divider BlaudOrangeBackground">
+                {{Field.Title}}
+            </div>
+            <!-- <span class="input-label BlaudBlue">{{Field.Title}}</span> -->
             <input type="date" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}">
         </label>
     </span>
     <!-- Choice -->
     <span data-ng-switch-when='6'>
-            <div class="item item-divider blaud">
+        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+            <div class="item item-divider BlaudOrangeBackground">
                 {{Field.Title}}
             </div>
             <ion-radio
@@ -39,12 +52,18 @@
                     name="{{Field.Title}}" class="BlaudBlue">
                 <span ng-bind-html="result" class="BlaudBlue"></span>
             </ion-radio>
+        </label>
     </span>
     <!-- Boolean -->
     <span data-ng-switch-when='8'>
-        <ion-toggle ng-model="Field.Value" name="{{Field.Title}}" ng-required="Field.Required" toggle-class="toggle-blaud" >
-            <span class="input-label BlaudBlue">{{Field.Title}}</span>
-        </ion-toggle>
+        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+            <div class="item item-divider BlaudOrangeBackground">
+                {{Field.Title}}
+            </div>
+            <ion-toggle ng-model="Field.Value" name="{{Field.Title}}" ng-required="Field.Required" toggle-class="toggle-blaud" >
+                <span class="input-label BlaudBlue">{{Field.Title}}</span>
+            </ion-toggle>
+        </label>
     </span>
     <!-- MultiChoice -->
     <span data-ng-switch-when='15'>

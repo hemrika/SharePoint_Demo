@@ -1,22 +1,44 @@
 angular.module('rapporteren.controllers', [])
 
-.controller('WelkomCtrl', function($scope, SharePoint) {
+.controller('WelkomCtrl', function($scope, SharePoint, $ionicLoading, $interval) {
+
+    $scope.Timer = null;
 
     $scope.$on('$ionicView.enter', function() {
-        //$scope.Authenticated = SharePoint.Security.Authenticated;
 
+        Ophalen();
+
+        $scope.Timer = $interval(function () {
+            Ophalen();
+        }, 30000);
+    });
+
+    $scope.$on('$ionicView.leave',function(){
+        //Cancel the Timer.
+        if (angular.isDefined($scope.Timer)) {
+            $interval.cancel($scope.Timer);
+        }
+    });
+
+    Ophalen = function() {
         var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
 
         $scope.Authenticated = auth;
         if(auth) {
             SharePoint.Web().then(function (Web) {
-                $scope.Web = Web.Properties;
+                Web.Lists('Meldingen').then(function (List) {
+                    $scope.Web = Web.Properties;
+                    $scope.Web.List = List.Properties;
+                });
+
             });
-        }
-    });
+        };
+    };
+
+
 })
 
-.controller('AanmeldenCtrl', function($scope, $state, SharePoint, $cordovaPreferences, $cordovaProgress) {
+.controller('AanmeldenCtrl', function($scope, $state, SharePoint, $cordovaPreferences, $ionicLoading) {
 
   $scope.loginData = {};
 
@@ -25,7 +47,7 @@ angular.module('rapporteren.controllers', [])
             $scope.loginData.username = value;
         })
         .error(function(error) {
-            alert("Error: " + error);
+            //alert("Error: " + error);
         })
 
     $cordovaPreferences.fetch('password', 'loginData')
@@ -33,12 +55,16 @@ angular.module('rapporteren.controllers', [])
             $scope.loginData.password = value;
         })
         .error(function(error) {
-            alert("Error: " + error);
+            //alert("Error: " + error);
         })
 
   $scope.Authenticate = function () {
 
-      $cordovaProgress.showSimple(true);
+      //$cordovaProgress.showSimple(true);
+      $ionicLoading.show({
+          template: '<ion-spinner class="light"></ion-spinner><br/><span>Authentificeren...</span>'
+      });
+
       $scope.MessageHide = true;
       $scope.Message = 'Nothing yet...';
 
@@ -55,19 +81,21 @@ angular.module('rapporteren.controllers', [])
                       .success(function(un) {
                           $cordovaPreferences.store('password', $scope.loginData.password, 'loginData')
                               .success(function(pw){
-                                  $cordovaProgress.hide();
+                                  //$cordovaProgress.hide();
+                                  $ionicLoading.hide();
                                   $state.go('Welkom', {}, {reload: true});
                               })
                       })
                       .error(function(error) {
-                          $cordovaProgress.hide();
+                          //$cordovaProgress.hide();
+                          $ionicLoading.hide();
                           alert("Error: " + error);
                       })
 
 
               }
               else {
-                  $cordovaProgress.hide();
+                  $ionicLoading.hide();
                   $scope.Message = 'Aanmelden mislukt, controleer uw gegevens en probeer opnieuw.';
                   $scope.MessageHide = false;
               }
@@ -76,11 +104,17 @@ angular.module('rapporteren.controllers', [])
   };
 })
 
-.controller('MeldingenCtrl', function($scope, $state, SharePoint, $cordovaProgress) {
+.controller('MeldingenCtrl', function($scope, $state, SharePoint, $ionicLoading, $interval) {
+
+    $scope.Timer = null;
 
     try {
         $scope.$on('$ionicView.enter', function () {
-            $cordovaProgress.showSimple(true);
+            $ionicLoading.show({
+                template: '<ion-spinner class="light"></ion-spinner><br/><span>Ophalen Meldingen...</span>',
+                noBackdrop: false
+            });
+
             SharePoint.Web().then(function (Web) {
                 Web.Lists('Meldingen').then(function (List) {
 
@@ -91,20 +125,58 @@ angular.module('rapporteren.controllers', [])
                         $scope.Web = Web.Properties;
                         $scope.Web.List = List.Properties;
                         $scope.Web.List.Items = Items;
-                        $cordovaProgress.hide();
+                        $ionicLoading.hide();
                     });
 
                 });
             });
+
+            $scope.Timer = $interval(function () {
+                Refresh();
+            }, 30000);
         });
+
+        $scope.$on('$ionicView.leave',function(){
+            //Cancel the Timer.
+            if (angular.isDefined($scope.Timer)) {
+                $interval.cancel($scope.Timer);
+            }
+        });
+
+        $scope.doRefresh = function(){
+            Refresh();
+        };
+
+        Refresh = function() {
+            $ionicLoading.show({
+                template: '<ion-spinner class="light"></ion-spinner><br/><span>Ophalen Meldingen...</span>',
+                noBackdrop: false
+            });
+
+            SharePoint.Web().then(function (Web) {
+                Web.Lists('Meldingen').then(function (List) {
+
+                    List.Items().then(function (Items) {
+                        //console.log(Items);
+
+                        //var results = Item.Fields[1].Choices.results;
+                        $scope.Web = Web.Properties;
+                        $scope.Web.List = List.Properties;
+                        $scope.Web.List.Items = Items;
+                        $ionicLoading.hide();
+                    });
+
+                });
+            });
+        };
     }
     catch (error) {
-        $cordovaProgress.hide();
+        $ionicLoading.hide();
         console.log(error);
     }
 })
 
-.controller('MeldingCtrl', function($scope, $stateParams, $state, SharePoint, $ionicModal, $cordovaProgress) {
+.controller('MeldingCtrl', function($scope, $stateParams, $state, SharePoint, $ionicModal, $ionicLoading) {
 
     //region File Modal
 
@@ -141,7 +213,10 @@ angular.module('rapporteren.controllers', [])
 
     try {
       $scope.$on('$ionicView.enter', function () {
-          $cordovaProgress.showSimple(true);
+          //$cordovaProgress.showSimple(true);
+          $ionicLoading.show({
+              template: '<ion-spinner class="light"></ion-spinner><br/><span>Ophalen Melding...</span>'
+          });
           SharePoint.Web().then(function (Web) {
               Web.Lists('Meldingen').then(function (List) {
                   List.Items($stateParams.ItemId).then(function (Item) {
@@ -151,7 +226,7 @@ angular.module('rapporteren.controllers', [])
                       Item.AttachmentFiles().then(function (Files) {
 
                           var Web_ServerRelativeUrl = Web.Properties.ServerRelativeUrl;
-                          $cordovaProgress.hide();
+                          $ionicLoading.hide();
 
                           $scope.Web.List.Item.Files = [];
 
@@ -160,7 +235,7 @@ angular.module('rapporteren.controllers', [])
                               File_ServerRelativeUrl = File_ServerRelativeUrl.replace(Web_ServerRelativeUrl, '');
                               file.WebRelativeUrl = File_ServerRelativeUrl;
                               $scope.Web.List.Item.Files.push(file);
-                              $cordovaProgress.hide();
+                              $ionicLoading.hide();
                           });
                       });
                   });
@@ -169,22 +244,25 @@ angular.module('rapporteren.controllers', [])
       });
     }
     catch (error) {
-        $cordovaProgress.hide();
+        $ionicLoading.hide();
       console.log(error);
     }
 
 
 })
 
-.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera, $cordovaProgress) {
+.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera, $ionicLoading) {
 
     try {
         $scope.$on('$ionicView.enter', function () {
-            $cordovaProgress.showSimple(true);
+            //$cordovaProgress.showSimple(true);
+            $ionicLoading.show({
+                template: '<ion-spinner class="light"></ion-spinner><br/><span>Opmaken Melding Formulier...</span>'
+            });
             $scope.bijlage = {};
-            $scope.bijlage.een = {'bsixfour': undefined, 'uri': 'img/icon.png'};
-            $scope.bijlage.twee = {'bsixfour': undefined, 'uri': 'img/icon.png'};
-            $scope.bijlage.drie = {'bsixfour': undefined, 'uri': 'img/icon.png'};
+            $scope.bijlage.een = {'bsixfour': undefined, 'uri': 'img/camera.png'};
+            $scope.bijlage.twee = {'bsixfour': undefined, 'uri': 'img/camera.png'};
+            $scope.bijlage.drie = {'bsixfour': undefined, 'uri': 'img/camera.png'};
 
             SharePoint.Web().then(function (Web) {
                 Web.Lists('Meldingen').then(function (List) {
@@ -200,20 +278,23 @@ angular.module('rapporteren.controllers', [])
                         $scope.Web = Web.Properties;
                         $scope.Web.List = List.Properties;
                         $scope.Web.List.Item = Item;
-                        $cordovaProgress.hide();
+                        $ionicLoading.hide();
                     });
                 });
             });
         });
     }
     catch (error) {
-        $cordovaProgress.hide();
+        $ionicLoading.hide();
         console.log(error);
     }
 
     $scope.Opslaan = function (Item) {
         try {
-            $cordovaProgress.showSimple(true);
+            //$cordovaProgress.showSimple(true);
+            $ionicLoading.show({
+                template: '<ion-spinner class="light"></ion-spinner><br/><span>Opslaan Melding...</span>'
+            });
             Item.Save().then(function (Item) {
 
                 if ($scope.bijlage.een.bsixfour != undefined) {
@@ -235,19 +316,20 @@ angular.module('rapporteren.controllers', [])
                 }
 
                 $scope.Web.List.Item = Item;
-                $cordovaProgress.hide();
+                $ionicLoading.hide();
                 $state.go('Meldingen', {}, {reload: true});
             });
+
+            $ionicLoading.hide();
         }
         catch (error) {
-            $cordovaProgress.hide();
+            $ionicLoading.hide();
             console.log(error);
         }
     }
 
     $scope.OpslaanFoto = function (Item, Naam, bsixfour) {
 
-        $cordovaProgress.showSimple(true)
         Item.AddFile(Naam, bsixfour).then(function (file) {
             console.log(file);
             //SharePoint.GetFileByServerRelativeUrl(SharePoint.ServerRelativeUrl() + "/" + file).then(function(data){

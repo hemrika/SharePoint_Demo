@@ -39,6 +39,9 @@
         },
         "org.pbernasconi.progressindicator": {
             "PACKAGE_NAME": "Rapporteren"
+        },
+        "com.telerik.plugins.nativepagetransitions": {
+            "PACKAGE_NAME": "Rapporteren"
         }
     },
     "dependent_plugins": {}

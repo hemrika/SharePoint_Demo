@@ -39,6 +39,9 @@
         },
         "org.pbernasconi.progressindicator": {
             "PACKAGE_NAME": "com.blaud.rapporteren"
+        },
+        "com.telerik.plugins.nativepagetransitions": {
+            "PACKAGE_NAME": "com.blaud.rapporteren"
         }
     },
     "dependent_plugins": {}

@@ -1,5 +1,5 @@
 <ion-view id="Aanmelden" title="Aanmelden" class="background">
-    <ion-content class="has-header" padding="true" style="background: url(img/blaud_light_logo.png) no-repeat center;background-size:cover;">
+    <ion-content class="has-header" padding="true" >
         <!-- <form style="" class="list list-inset" ng-submit="Authenticate()"> -->
             <ion-list style="" class="list list-inset">
                 <label style="" name="username" class="item item-input">
@@ -12,7 +12,7 @@
                 </label>
             </ion-list>
         <!-- </form> -->
-        <button class="button button-blaud  button-block icon-right ion-person" id="aanmelden-button1" type="submit" ng-click="Authenticate()">Aanmelden</button>
+        <button class="button button-blaud  button-block icon-right fa fa-arrow-circle-right fa-lg" id="aanmelden-button1" type="submit" ng-click="Authenticate()">Aanmelden</button>
         <div style="height: 10px;" class="spacer"></div>
         <div ng-hide="MessageHide" >{{Message}}</div>
     </ion-content>
