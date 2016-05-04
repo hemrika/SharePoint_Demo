@@ -1,11 +1,11 @@
-<ion-view id="Welkom" title="Apps voor SharePoint" class="backgroundWelcome" >
+<ion-view id="Welkom" title="MakeMyCase" class="backgroundWelcome" hide-nav-bar="true">
 
     <ion-content class="has-header" padding="true" >
         <div class="item-image" id="image-container">
             <img ng-src="img/makemycase-logo.png" >
         </div>
         <button class="button button-blaud  button-block icon-right ion-person" id="aanmelden" ui-sref="Aanmelden" ng-disabled="Authenticated">Aanmelden</button>
-        <button class="button button-blaud  button-block icon-right ion-speakerphone" id="meldingen" ui-sref="Meldingen" ng-disabled="!Authenticated">Meldingen ({{Web.List.ItemCount}})</button>
+        <button class="button button-blaud  button-block icon-right ion-speakerphone" id="meldingen" ui-sref="Meldingen" ng-disabled="!Authenticated">Meldingen</button>
         <button class="button button-blaud  button-block icon-right ion-plus-round" id="melding" ui-sref="CreateMelding" ng-disabled="!Authenticated"> Nieuwe Melding </button>
     </ion-content>
     <div class="item-image-logo" id="image-logo">

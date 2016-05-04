@@ -1,25 +1,34 @@
 angular.module('rapporteren.controllers', [])
 
-.controller('WelkomCtrl', function($scope, SharePoint, $ionicLoading, $interval) {
+.controller('WelkomCtrl', function($scope, SharePoint, $ionicLoading, $interval, $ionicAnalytics) {
 
-    $scope.Timer = null;
+    //$scope.Timer = null;
 
     $scope.$on('$ionicView.enter', function() {
 
+        var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
+
+        $scope.Authenticated = auth;
+
+        /*
         Ophalen();
 
         $scope.Timer = $interval(function () {
             Ophalen();
         }, 30000);
+        */
     });
 
     $scope.$on('$ionicView.leave',function(){
+        /*
         //Cancel the Timer.
         if (angular.isDefined($scope.Timer)) {
             $interval.cancel($scope.Timer);
         }
+        */
     });
 
+    /*
     Ophalen = function() {
         var auth = (SharePoint.Security.CurrentUser !== null) ? true : false;
 
@@ -34,11 +43,11 @@ angular.module('rapporteren.controllers', [])
             });
         };
     };
-
+    */
 
 })
 
-.controller('AanmeldenCtrl', function($scope, $state, SharePoint, $cordovaPreferences, $ionicLoading) {
+.controller('AanmeldenCtrl', function($scope, $state, SharePoint, $cordovaPreferences, $ionicLoading, $ionicAnalytics) {
 
   $scope.loginData = {};
 
@@ -60,51 +69,60 @@ angular.module('rapporteren.controllers', [])
 
   $scope.Authenticate = function () {
 
-      //$cordovaProgress.showSimple(true);
-      $ionicLoading.show({
-          template: '<ion-spinner class="light"></ion-spinner><br/><span>Authentificeren...</span>'
-      });
+      try {
+          var domain = SharePoint.Security.Endpoint;
 
-      $scope.MessageHide = true;
-      $scope.Message = 'Nothing yet...';
-
-      var domain = SharePoint.Security.Endpoint;
-      SharePoint.Security.SetConfiguration($scope.loginData.username, $scope.loginData.password, domain).then(function () {
-
-          SharePoint.Security.Authenticate().then(function () {
-              $scope.Authenticated = (SharePoint.Security.CurrentUser !== null) ? true : false;
-              //if(SharePoint.Security.Authenticated) {
-              if ($scope.Authenticated) {
-                  $scope.Message = 'Succes, moving on...';
-
-                  $cordovaPreferences.store('username', $scope.loginData.username, 'loginData')
-                      .success(function(un) {
-                          $cordovaPreferences.store('password', $scope.loginData.password, 'loginData')
-                              .success(function(pw){
-                                  //$cordovaProgress.hide();
-                                  $ionicLoading.hide();
-                                  $state.go('Welkom', {}, {reload: true});
-                              })
-                      })
-                      .error(function(error) {
-                          //$cordovaProgress.hide();
-                          $ionicLoading.hide();
-                          alert("Error: " + error);
-                      })
-
-
-              }
-              else {
-                  $ionicLoading.hide();
-                  $scope.Message = 'Aanmelden mislukt, controleer uw gegevens en probeer opnieuw.';
-                  $scope.MessageHide = false;
-              }
+          //$cordovaProgress.showSimple(true);
+          $ionicLoading.show({
+              template: '<ion-spinner class="light"></ion-spinner><br/><span>Authenticeren...</span>'
           });
-      });
+
+          $scope.MessageHide = true;
+          $scope.Message = 'Nothing yet...';
+
+          SharePoint.Security.SetConfiguration($scope.loginData.username, $scope.loginData.password, domain).then(function () {
+
+              SharePoint.Security.Authenticate().then(function () {
+                  $scope.Authenticated = (SharePoint.Security.CurrentUser !== null) ? true : false;
+                  //if(SharePoint.Security.Authenticated) {
+                  if ($scope.Authenticated) {
+                      $scope.Message = 'Succes, moving on...';
+
+                      $cordovaPreferences.store('username', $scope.loginData.username, 'loginData')
+                          .success(function (un) {
+                              $cordovaPreferences.store('password', $scope.loginData.password, 'loginData')
+                                  .success(function (pw) {
+                                      //$cordovaProgress.hide();
+                                      $ionicLoading.hide();
+                                      $state.go('Welkom', {}, {reload: true});
+                                  })
+                          })
+                          .error(function (error) {
+                              //$cordovaProgress.hide();
+                              $ionicLoading.hide();
+                              alert("Error: " + error);
+                          })
+
+
+                  }
+                  else {
+                      $ionicLoading.hide();
+                      $scope.Message = 'Aanmelden mislukt, controleer uw gegevens en probeer opnieuw.';
+                      $scope.MessageHide = false;
+                  }
+              });
+
+          });
+      }
+      catch (error) {
+          $ionicLoading.hide();
+          $state.go('Welkom', {}, {reload: true});
+          console.log(error);
+      }
   };
 })
 
-.controller('MeldingenCtrl', function($scope, $state, SharePoint, $ionicLoading, $interval) {
+.controller('MeldingenCtrl', function($scope, $state, SharePoint, $ionicLoading, $interval, $ionicAnalytics) {
 
     $scope.Timer = null;
 
@@ -176,7 +194,7 @@ angular.module('rapporteren.controllers', [])
     }
 })
 
-.controller('MeldingCtrl', function($scope, $stateParams, $state, SharePoint, $ionicModal, $ionicLoading) {
+.controller('MeldingCtrl', function($scope, $stateParams, $state, SharePoint, $ionicModal, $ionicLoading, $ionicAnalytics) {
 
     //region File Modal
 
@@ -251,7 +269,7 @@ angular.module('rapporteren.controllers', [])
 
 })
 
-.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera, $ionicLoading) {
+.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera, $ionicLoading, $ionicAnalytics) {
 
     try {
         $scope.$on('$ionicView.enter', function () {

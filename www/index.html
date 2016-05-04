@@ -23,7 +23,8 @@
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+    <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+<!-- <script src="cordova.js"></script> -->
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -50,14 +51,15 @@
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
     -->
 
-  </head>
+  
+<script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script></head>
   <body ng-app="rapporteren">
   <div>
     <div>
         <ion-nav-bar class="bar bar-header blaud" align-title="center">
             <ion-nav-back-button class="button-icon icon fa fa-arrow-circle-left fa-lg light"> Terug </ion-nav-back-button>
       </ion-nav-bar>
-        <ion-nav-view id="index"></ion-nav-view>
+        <ion-nav-view id="index" hide-nav-bar="true" class="backgroundWelcome"></ion-nav-view>
     </div>
 </div>
   </body>

@@ -5,15 +5,15 @@
                 pulling-text="Meldingen Verversen"
                 on-refresh="doRefresh()">
         </ion-refresher>
-        <ion-list style="list-blaud">
+        <ion-list class="list-blaud">
             <div class="item item-divider BlaudOrangeBackground">
-                Meldingen
+                Meldingen ( Gewijzigd op {{Web.List.LastItemModifiedDate | date:'short':'+0200'}})
             </div>
             <ion-item ng-hide="Web.List.Items.length"><h2>Geen Meldingen</h2></ion-item>
             <ion-item ng-repeat="item in Web.List.Items | orderBy: 'Datum':true" ui-sref="Melding({ItemId: item.Id})" class="item item-icon-left blaud">
                 <i class="icon fa {{item.Soort}} {{item.Urgentie}} fa-lg fa-fw"></i>
-                <h2>{{item.Onderwerp}}</h2>
-                <span class="BlaudBlue item-left " >{{item.Datum | date:'longDate'}}</span><br/>
+                <h2 style="font-weight: bold;">{{item.Onderwerp}}</h2>
+                <span class="BlaudBlue item-left " >{{item.Datum | date:'short':'+0200'}}</span><br/>
                 <span class="BlaudBlue item-left" >{{item.Situatie | limitTo : 256 : 0}}</span>
             </ion-item>
         </ion-list>
