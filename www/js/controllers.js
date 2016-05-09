@@ -1,6 +1,6 @@
 angular.module('rapporteren.controllers', [])
 
-.controller('WelkomCtrl', function($scope, SharePoint, $ionicLoading, $interval, $ionicAnalytics) {
+.controller('WelkomCtrl', function($scope, SharePoint, $ionicLoading, $interval /*, $ionicAnalytics */) {
 
     //$scope.Timer = null;
 
@@ -47,7 +47,7 @@ angular.module('rapporteren.controllers', [])
 
 })
 
-.controller('AanmeldenCtrl', function($scope, $state, SharePoint, $cordovaPreferences, $ionicLoading, $ionicAnalytics) {
+.controller('AanmeldenCtrl', function($scope, $state, SharePoint, $cordovaPreferences, $ionicLoading/*, $ionicAnalytics */) {
 
   $scope.loginData = {};
 
@@ -121,7 +121,7 @@ angular.module('rapporteren.controllers', [])
   };
 })
 
-.controller('MeldingenCtrl', function($scope, $state, SharePoint, $ionicLoading, $interval, $ionicAnalytics) {
+.controller('MeldingenCtrl', function($scope, $state, SharePoint, $ionicLoading, $interval/*, $ionicAnalytics */) {
 
     $scope.Timer = null;
 
@@ -207,7 +207,7 @@ angular.module('rapporteren.controllers', [])
     }
 })
 
-.controller('MeldingCtrl', function($scope, $stateParams, $state, SharePoint, $ionicModal, $ionicLoading, $ionicAnalytics) {
+.controller('MeldingCtrl', function($scope, $stateParams, $state, SharePoint, $ionicModal, $ionicLoading/*, $ionicAnalytics */) {
 
     //region File Modal
 
@@ -370,7 +370,7 @@ angular.module('rapporteren.controllers', [])
 
 })
 
-.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera, $ionicLoading, $ionicAnalytics) {
+.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera, $ionicLoading/*, $ionicAnalytics */) {
 
     try {
         $scope.$on('$ionicView.enter', function () {

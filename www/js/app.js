@@ -5,11 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('rapporteren', ['ionic','ionic.service.core', 'ionic.service.analytics', 'rapporteren.controllers', 'rapporteren.routes', 'rapporteren.services', 'rapporteren.directives', 'ngSharePoint', 'ngCordova']) /* , 'ionic-native-transitions'])*/
+angular.module('rapporteren', ['ionic', /*'ionic.service.core', 'ionic.service.analytics',*/ 'rapporteren.controllers', 'rapporteren.routes', 'rapporteren.services', 'rapporteren.directives', 'ngSharePoint', 'ngCordova']) /* , 'ionic-native-transitions'])*/
 
-.run(function($ionicPlatform, $ionicAnalytics, SharePoint) {
+.run(function($ionicPlatform, /*$ionicAnalytics,*/ SharePoint) {
   $ionicPlatform.ready(function() {
 
+    /*
     try {
       $ionicAnalytics.register();
     }
@@ -21,7 +22,8 @@ angular.module('rapporteren', ['ionic','ionic.service.core', 'ionic.service.anal
       app_version_number: 'v0.0.0.1',
       day_of_week: (new Date()).getDay()
     });
-
+    */
+    
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
