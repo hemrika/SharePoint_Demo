@@ -12,6 +12,7 @@
     "x2js": "x2js#~1.2.0",
     "ngCordova": "^0.1.26-alpha",
     "ionic-native-transitions": "shprink/ionic-native-transitions#^1.0.0-rc9",
-    "ionic-service-core": "^0.1.10"
+    "ionic-service-core": "^0.1.10",
+    "ionic-service-analytics": "^0.2.5"
   }
 }
