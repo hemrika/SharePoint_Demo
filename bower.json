@@ -9,6 +9,8 @@
     "font-awesome": "~4.4.0",
     "angular-resource": "1.4.3",
     "jquery": "~2.2.3",
-    "x2js": "x2js#~1.2.0"
+    "x2js": "x2js#~1.2.0",
+    "ngCordova": "^0.1.26-alpha",
+    "ionic-native-transitions": "shprink/ionic-native-transitions#^1.0.0-rc9"
   }
 }

@@ -16,7 +16,7 @@
             <ion-item ng-repeat="item in Web.List.Items | orderBy: 'Datum':true" ui-sref="Melding({ItemId: item.Id})" class="item item-icon-left item-icon-right blaud">
                 <i class="icon fa {{item.Soort}} {{item.Urgentie}} fa-lg fa-fw"></i>
                 <h2 style="font-weight: bold;">{{item.Onderwerp}}</h2>
-                <span class="BlaudBlue item-left " >{{item.Datum | date:'short':'+0200'}}</span><br/>
+                <span class="BlaudBlue item-left " >{{item.Datum | date:'longDate':'+0200'}}</span><br/>
                 <span class="BlaudBlue item-left" >{{item.Situatie | limitTo : 256 : 0}}</span>
                 <ion-option-button class="button-info" ui-sref="ModifyMelding({ItemId: item.Id})">
                     Aanpassen
