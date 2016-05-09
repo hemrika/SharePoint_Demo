@@ -183,6 +183,16 @@ angular.module('rapporteren.controllers', [])
                         //var results = Item.Fields[1].Choices.results;
                         $scope.Web = Web.Properties;
                         $scope.Web.List = List.Properties;
+
+                        Items.forEach(function(item, idx, theItems) {
+                            item.Fields.forEach(function (field, index, theFields) {
+                                //theItems[idx].theFields[index].ReadOnlyField = true;
+
+                                if (field.FieldTypeKind === 4 && angular.isDefined(field.Value)) {
+                                    field.Value = new Date(field.Value);
+                                }
+                            });
+                        });
                         $scope.Web.List.Items = Items;
                         $ionicLoading.hide();
                     });

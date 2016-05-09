@@ -42,6 +42,9 @@
         },
         "com.telerik.plugins.nativepagetransitions": {
             "PACKAGE_NAME": "Rapporteren"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "MakeMyCase"
         }
     },
     "dependent_plugins": {}
