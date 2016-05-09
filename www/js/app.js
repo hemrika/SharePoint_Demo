@@ -10,7 +10,12 @@ angular.module('rapporteren', ['ionic','ionic.service.core', 'ionic.service.anal
 .run(function($ionicPlatform, $ionicAnalytics, SharePoint) {
   $ionicPlatform.ready(function() {
 
-    $ionicAnalytics.register();
+    try {
+      $ionicAnalytics.register();
+    }
+    catch (error) {
+      console.log(error);
+    }
 
     $ionicAnalytics.setGlobalProperties({
       app_version_number: 'v0.0.0.1',

@@ -94,16 +94,15 @@ angular.module('rapporteren.controllers', [])
                                   .success(function (pw) {
                                       //$cordovaProgress.hide();
                                       $ionicLoading.hide();
-                                      $state.go('Welkom', {}, {reload: true});
+                                      //$state.go('Welkom', {}, {reload: true});
                                   })
                           })
                           .error(function (error) {
                               //$cordovaProgress.hide();
                               $ionicLoading.hide();
-                              alert("Error: " + error);
+                              //alert("Error: " + error);
                           })
-
-
+                      $state.go('Welkom', {}, {reload: true});
                   }
                   else {
                       $ionicLoading.hide();
