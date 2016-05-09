@@ -145,30 +145,43 @@
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     background: url('../img/camera.png') no-repeat;
+    -webkit-box-shadow: 8px 8px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 8px 8px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 8px 8px 5px 0px rgba(0,0,0,0.75);
+    /*
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    */
     min-height: 100%;
     margin: 1%;
-    border-radius: 50%;
-    /* padding: 5px; */
-    background-color: #ffffff;
-    overflow: hidden !important;
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+    background-size: cover !important;
+    background-position: center !important;
 }
 
+/*
 .blaud-camera-button img {
-    /* position: relative; */
-    /* min-height: 100% !important; */
     left: calc(-50vw + 50%);
     box-shadow: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
-    /* padding: 5px; */
     width: 100%;
     height: 130px;
     overflow: hidden;
 
 }
+*/
+ .photoZoomer {
+     width: 100%;
+     height: 100vh;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center, center !important;
+     /*background-size: cover !important;*/
+ }
 
 .button.button-blaud {
     border-color: transparent;

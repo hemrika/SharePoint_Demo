@@ -460,6 +460,11 @@ angular.module('rapporteren.controllers', [])
         console.log(error);
     }
 
+    $scope.$on('$ionicView.leave', function(){
+
+        //$scope.Opslaan($scope.Web.List.Item);
+    });
+
     $scope.Opslaan = function (Item) {
         try {
             //$cordovaProgress.showSimple(true);
