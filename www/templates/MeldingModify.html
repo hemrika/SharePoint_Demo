@@ -1,32 +1,17 @@
-<ion-view id="Meldingen" title="Melding Aanpassen" class="background">>
-    <ion-content class="has-header" padding="true" >
+<ion-view id="Meldingen" cache-view="false" title="Melding" class="background">
+    <ion-content class="has-header" padding="true">
+        <div class="row row-center" style="height: 140px; min-height: 140px;">
+            <div class="col col-30 blaud-camera-button" ng-click="takePhoto('een')"><img ng-src="{{bijlage.een.uri}}"  style="width:100%" class="blaud-camera-button" ></button></div>
+            <div class="col col-30 blaud-camera-button" ng-click="takePhoto('twee')"><img ng-src="{{bijlage.twee.uri}}"  style="width:100%" class="blaud-camera-button"></button></div>
+            <div class="col col-30 blaud-camera-button" ng-click="takePhoto('drie')"><img ng-src="{{bijlage.drie.uri}}"  style="width:100%" class="blaud-camera-button" ></button></div>
+        </div>
         <form style="" class="list">
-            <div class="button-bar">
-                <a class="item item-avatar" ng-click="takePhoto('een')">
-                    <img ng-src="{{bijlage.een.uri}}" >
-                </a>
-                <a class="item item-avatar" ng-click="takePhoto('twee')">
-                    <img ng-src="{{bijlage.twee.uri}}" >
-                </a>
-                <a class="item item-avatar" ng-click="takePhoto('drie')">
-                    <img ng-src="{{bijlage.drie.uri}}" >
-                </a>
-            </div>
-            <!--
-            <button class="button button-energized  button-block button-outline icon-left ion-camera" ng-click="takePhoto()">
-                Neem Foto
-            </button>
-            <button class="button button-energized  button-block button-outline icon-right ion-images" ng-click="choosePhoto()">
-                Kies Foto
-            </button>
-            -->
-            <ion-list>
-                <ion-item ng-repeat="Field in Web.List.Item.Fields">
+            <ion-list class="list-blaud">
+                <ion-item ng-repeat="Field in Web.List.Item.Fields" class="item-blaud">
                     <div data-ng-include="'templates/Formulier.html'"></div>
                 </ion-item>
             </ion-list>
-            <button class="button button-calm  button-block button-outline icon-right ion-checkmark-round" data-ng-click="Opslaan(Web.List.Item)" id="melding_opslaan">Opslaan Melding</button>
-            <!-- <button class="button button-energized  button-block button-outline icon-left ion-alert-circled" data-ng-click="OpslaanFoto(Web.List.Item,'fotonaam.jpg',bsixfour)" id="melding_bestanden">Opslaan Foto</button> -->
+            <button class="button button-blaud  button-block icon-right fa fa-arrow-circle-right fa-lg" data-ng-click="Opslaan(Web.List.Item)" id="melding_opslaan">Opslaan Melding</button>
         </form>
     </ion-content>
 </ion-view>

@@ -27,7 +27,8 @@ angular.module('rapporteren.routes', [])
 
       .state('Melding', {
           url: '/Melding/:ItemId',
-          templateUrl: 'templates/Melding.html',
+          /* templateUrl: 'templates/Melding.html',*/
+          templateUrl: 'templates/MeldingRead.html',
           controller: 'MeldingCtrl'
       })
 

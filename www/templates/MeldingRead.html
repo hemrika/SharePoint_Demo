@@ -1,0 +1,28 @@
+<ion-view id="Meldingen" cache-view="false" title="Melden" class="background">
+    <ion-content class="has-header" padding="true">
+        <a class="button button-blaud  button-block icon-right fa fa-pencil-square-o fa-lg" id="meldingen-button8" ui-sref="ModifyMelding({ItemId: Web.List.Item.Properties.Id})"> Aanpassen Melding </a>
+        </br>
+        <div class="row row-center" style="height: 140px; min-height: 140px;">
+            <div class="col col-30 blaud-camera-button" ng-click="openModal(bijlage.een.uri)" ><img ng-src="{{bijlage.een.uri}}"  style="width:100%" class="blaud-camera-button" ></button></div>
+            <div class="col col-30 blaud-camera-button" ng-click="openModal(bijlage.twee.uri)"><img ng-src="{{bijlage.twee.uri}}"  style="width:100%" class="blaud-camera-button"></button></div>
+            <div class="col col-30 blaud-camera-button" ng-click="openModal(bijlage.drie.uri)"><img ng-src="{{bijlage.drie.uri}}"  style="width:100%" class="blaud-camera-button" ></button></div>
+        </div>
+        <form style="" class="list">
+            <ion-list class="list-blaud">
+              <ion-item ng-repeat="Field in Web.List.Item.Fields" class="item-blaud">
+                  <div data-ng-include="'templates/Formulier.html'"></div>
+              </ion-item>
+            </ion-list>
+        </form>
+    </ion-content>
+    <script id="file-modal.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar bar-header blaud" align-title="center">
+                <button class="button-icon icon fa fa-arrow-circle-left fa-lg light" ng-click="closeModal()"> Terug </button>
+            </ion-header-bar>
+            <ion-scroll class="has-header" zooming="true" direction="xy" style="height:100vh;" >
+                <img ng-src="{{ModalFile}}" style="display: flex;align-items: center;justify-content: center;width: auto; height: auto;">
+            </ion-scroll>
+        </ion-modal-view>
+    </script>
+</ion-view>

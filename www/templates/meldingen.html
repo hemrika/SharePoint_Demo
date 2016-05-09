@@ -1,4 +1,7 @@
-<ion-view id="Meldingen" title="Meldingen" class="background">>
+<ion-view id="Meldingen" cache-view="false" title="Meldingen" class="background">
+    <ion-nav-bar class="bar bar-header blaud" align-title="center">
+        <ion-nav-back-button class="button-icon icon fa fa-arrow-circle-left fa-lg light" ng-click="goBack()"> Terug </ion-nav-back-button>
+    </ion-nav-bar>
     <ion-content class="has-header" padding="true" >
         <a class="button button-blaud  button-block icon-right ion-plus-round" id="meldingen-button8" ui-sref="CreateMelding"> Nieuwe Melding </a>
         <ion-refresher
@@ -7,14 +10,17 @@
         </ion-refresher>
         <ion-list class="list-blaud">
             <div class="item item-divider BlaudOrangeBackground">
-                Meldingen ( Gewijzigd op {{Web.List.LastItemModifiedDate | date:'short':'+0200'}})
+                Meldingen
             </div>
             <ion-item ng-hide="Web.List.Items.length"><h2>Geen Meldingen</h2></ion-item>
-            <ion-item ng-repeat="item in Web.List.Items | orderBy: 'Datum':true" ui-sref="Melding({ItemId: item.Id})" class="item item-icon-left blaud">
+            <ion-item ng-repeat="item in Web.List.Items | orderBy: 'Datum':true" ui-sref="Melding({ItemId: item.Id})" class="item item-icon-left item-icon-right blaud">
                 <i class="icon fa {{item.Soort}} {{item.Urgentie}} fa-lg fa-fw"></i>
                 <h2 style="font-weight: bold;">{{item.Onderwerp}}</h2>
                 <span class="BlaudBlue item-left " >{{item.Datum | date:'short':'+0200'}}</span><br/>
                 <span class="BlaudBlue item-left" >{{item.Situatie | limitTo : 256 : 0}}</span>
+                <ion-option-button class="button-info" ui-sref="ModifyMelding({ItemId: item.Id})">
+                    Aanpassen
+                </ion-option-button>
             </ion-item>
         </ion-list>
     </ion-content>
