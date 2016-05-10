@@ -404,6 +404,14 @@ angular.module('rapporteren.controllers', [])
 
                         $scope.Web.List.Item = Item;
 
+                        /*
+                        $scope.$watch( $scope.Web.List.Item, function (Item) {
+                            if (angular.isDefined(Item)) {
+                                $scope.isDataHasChanges = true;
+                            }
+                        });
+                        */
+
                         $ionicLoading.hide();
 
                         if(id > 0) {
@@ -462,7 +470,11 @@ angular.module('rapporteren.controllers', [])
 
     $scope.$on('$ionicView.leave', function(){
 
-        //$scope.Opslaan($scope.Web.List.Item);
+        if($scope.isDataHasChanges){
+            alert('Titel : '+$scope.Web.List.Item.Title);
+            //$scope.Opslaan($scope.Web.List.Item);
+        }
+
     });
 
     $scope.Opslaan = function (Item) {
