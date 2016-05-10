@@ -74,7 +74,10 @@ angular.module('rapporteren.controllers', [])
 
           //$cordovaProgress.showSimple(true);
           $ionicLoading.show({
-              template: '<ion-spinner class="light"></ion-spinner><br/><span>Authenticeren...</span>'
+              template: '<ion-spinner class="light"></ion-spinner><br/><span>Authenticeren...</span>',
+              noBackdrop: false,
+              duration: 10000,
+              hideOnStateChange: true
           });
 
           $scope.MessageHide = true;
@@ -125,15 +128,18 @@ angular.module('rapporteren.controllers', [])
 
     $scope.Timer = null;
 
-    $scope.goBack = function(){
+    $scope.goBack = function () {
         $state.go('Welkom', {}, {reload: true});
     }
 
-    try {
-        $scope.$on('$ionicView.enter', function () {
+
+    $scope.$on('$ionicView.enter', function () {
+        try {
             $ionicLoading.show({
                 template: '<ion-spinner class="light"></ion-spinner><br/><span>Ophalen Meldingen...</span>',
-                noBackdrop: false
+                noBackdrop: false,
+                duration: 5000,
+                hideOnStateChange: true
             });
 
             SharePoint.Web().then(function (Web) {
@@ -152,26 +158,36 @@ angular.module('rapporteren.controllers', [])
                 });
             });
 
+
             $scope.Timer = $interval(function () {
                 Refresh();
             }, 30000);
-        });
 
-        $scope.$on('$ionicView.leave',function(){
-            //Cancel the Timer.
-            if (angular.isDefined($scope.Timer)) {
-                $interval.cancel($scope.Timer);
-            }
-        });
+        }
+        catch (error) {
+            $ionicLoading.hide();
+            console.log(error);
+        }
+    });
 
-        $scope.doRefresh = function(){
-            Refresh();
-        };
+    $scope.$on('$ionicView.leave', function () {
+        //Cancel the Timer.
+        if (angular.isDefined($scope.Timer)) {
+            $interval.cancel($scope.Timer);
+        }
+    });
 
-        Refresh = function() {
+    $scope.doRefresh = function () {
+        Refresh();
+    };
+
+    Refresh = function () {
+        try {
             $ionicLoading.show({
                 template: '<ion-spinner class="light"></ion-spinner><br/><span>Ophalen Meldingen...</span>',
-                noBackdrop: false
+                noBackdrop: false,
+                duration: 5000,
+                hideOnStateChange: true
             });
 
             SharePoint.Web().then(function (Web) {
@@ -184,7 +200,7 @@ angular.module('rapporteren.controllers', [])
                         $scope.Web = Web.Properties;
                         $scope.Web.List = List.Properties;
 
-                        Items.forEach(function(item, idx, theItems) {
+                        Items.forEach(function (item, idx, theItems) {
                             item.Fields.forEach(function (field, index, theFields) {
                                 //theItems[idx].theFields[index].ReadOnlyField = true;
 
@@ -199,12 +215,12 @@ angular.module('rapporteren.controllers', [])
 
                 });
             });
-        };
-    }
-    catch (error) {
-        $ionicLoading.hide();
-        console.log(error);
-    }
+        }
+        catch (error) {
+            $ionicLoading.hide();
+            console.log(error);
+        }
+    };
 })
 
 .controller('MeldingCtrl', function($scope, $stateParams, $state, SharePoint, $ionicModal, $ionicLoading/*, $ionicAnalytics */) {
@@ -214,169 +230,43 @@ angular.module('rapporteren.controllers', [])
     $ionicModal.fromTemplateUrl('file-modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
-    }).then(function(modal) {
+    }).then(function (modal) {
         $scope.modal = modal;
     });
 
-    $scope.openModal = function(file) {
+    $scope.openModal = function (file) {
         $scope.ModalFile = file;
         $scope.modal.show();
     };
-    $scope.closeModal = function() {
+    $scope.closeModal = function () {
         $scope.ModalFile = undefined;
         $scope.modal.hide();
     };
     // Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function () {
         $scope.modal.remove();
     });
 
     // Execute action on hide modal
-    $scope.$on('modal.hidden', function() {
+    $scope.$on('modal.hidden', function () {
         // Execute action
     });
     // Execute action on remove modal
-    $scope.$on('modal.removed', function() {
+    $scope.$on('modal.removed', function () {
         // Execute action
     });
 
     //endregion
 
-    try {
-      $scope.$on('$ionicView.enter', function () {
-          //$cordovaProgress.showSimple(true);
-          $ionicLoading.show({
-              template: '<ion-spinner class="light"></ion-spinner><br/><span>Ophalen Melding...</span>'
-          });
+    $scope.$on('$ionicView.enter', function () {
 
-          $scope.bijlage = {};
-          $scope.bijlage.een = {'bsixfour': undefined, 'uri': 'img/camera.png', 'org': undefined};
-          $scope.bijlage.twee = {'bsixfour': undefined, 'uri': 'img/camera.png', 'org': undefined};
-          $scope.bijlage.drie = {'bsixfour': undefined, 'uri': 'img/camera.png', 'org': undefined};
-
-          SharePoint.Web().then(function (Web) {
-              Web.Lists('Meldingen').then(function (List) {
-
-                  var id = -1;
-                  if (angular.isDefined($stateParams.ItemId)) {
-                      id = $stateParams.ItemId;
-                  };
-
-                  List.Items(id).then(function (Item) {
-                      $scope.Web = Web.Properties;
-                      $scope.Web.List = List.Properties;
-
-                      Item.Fields.forEach(function(field, index, theFields) {
-                          theFields[index].ReadOnlyField = true;
-
-                          if(field.FieldTypeKind === 4 && angular.isDefined(field.Value)){
-                              field.Value = new Date(field.Value);
-                          }
-                      });
-
-                      $scope.Web.List.Item = Item;
-                      $scope.Web.List.Item.Files = [];
-
-                      $ionicLoading.hide();
-
-                      if(id > 0) {
-                          var d = new Date();
-
-                          Item.GetAttachmentCollection().then(function (Attachments) {
-
-                              if (Array.isArray(Attachments.Attachment)) {
-
-                                  Attachments.Attachment.forEach(function (Attachment, index) {
-
-                                      if (Attachment.includes('bijlage_een.png')) {
-                                          $scope.bijlage.een.uri = Attachment.valueOf() + "?t=" + d.getTime();
-                                          $scope.bijlage.een.org = Attachment.valueOf();
-                                      }
-
-                                      if (Attachment.includes('bijlage_twee.png')) {
-                                          $scope.bijlage.twee.uri = Attachment.valueOf() + "?t=" + d.getTime();
-                                          $scope.bijlage.twee.org = Attachment.valueOf();
-                                      }
-
-                                      if (Attachment.includes('bijlage_drie.png')) {
-                                          $scope.bijlage.drie.uri = Attachment.valueOf() + "?t=" + d.getTime();
-                                          $scope.bijlage.drie.org = Attachment.valueOf();
-                                      }
-                                  });
-                              }
-                              else {
-                                  if (Attachments.Attachment.includes('bijlage_een.png')) {
-                                      $scope.bijlage.een.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
-                                      $scope.bijlage.een.org = Attachments.Attachment.valueOf();
-                                  }
-
-                                  if (Attachments.Attachment.includes('bijlage_twee.png')) {
-                                      $scope.bijlage.twee.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
-                                      $scope.bijlage.twee.org = Attachments.Attachment.valueOf();
-                                  }
-
-                                  if (Attachments.Attachment.includes('bijlage_drie.png')) {
-                                      $scope.bijlage.drie.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
-                                      $scope.bijlage.drie.org = Attachments.Attachment.valueOf();
-                                  }
-                              }
-                          });
-                      }
-                      /*
-                      Item.GetAttachmentCollection().then(function(Attachments){
-
-                          var d=new Date();
-
-                          if(Array.isArray(Attachments.Attachment)) {
-                              //$scope.Web.List.Item.Files = Attachments.Attachment;//[];
-                              Attachments.Attachment.forEach(function (Attachment, index) {
-                                  //console.log(Attachment);
-                                  $scope.Web.List.Item.Files.push(Attachment.valueOf()+"?t="+d.getTime());
-                              });
-                          }
-                          else {
-                              $scope.Web.List.Item.Files.push(Attachments.Attachment.valueOf()+"?t="+d.getTime());
-                          }
-                      });
-                      */
-
-                      /*
-                      Item.AttachmentFiles().then(function (Files) {
-
-                          var Web_ServerRelativeUrl = Web.Properties.ServerRelativeUrl;
-                          $ionicLoading.hide();
-
-                          $scope.Web.List.Item.Files = [];
-
-                          Files.forEach(function (file) {
-                              var File_ServerRelativeUrl = file.ServerRelativeUrl;
-                              File_ServerRelativeUrl = File_ServerRelativeUrl.replace(Web_ServerRelativeUrl, '');
-                              file.WebRelativeUrl = File_ServerRelativeUrl;
-                              $scope.Web.List.Item.Files.push(file);
-                              $ionicLoading.hide();
-                          });
-                      });
-                      */
-                  });
-              });
-          });
-      });
-    }
-    catch (error) {
-        $ionicLoading.hide();
-      console.log(error);
-    }
-
-
-})
-
-.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera, $ionicLoading/*, $ionicAnalytics */) {
-
-    try {
-        $scope.$on('$ionicView.enter', function () {
+        try {
             //$cordovaProgress.showSimple(true);
             $ionicLoading.show({
-                template: '<ion-spinner class="light"></ion-spinner><br/><span>Opmaken Melding Formulier...</span>'
+                template: '<ion-spinner class="light"></ion-spinner><br/><span>Ophalen Melding...</span>',
+                noBackdrop: false,
+                duration: 5000,
+                hideOnStateChange: true
             });
 
             $scope.bijlage = {};
@@ -390,7 +280,140 @@ angular.module('rapporteren.controllers', [])
                     var id = -1;
                     if (angular.isDefined($stateParams.ItemId)) {
                         id = $stateParams.ItemId;
-                    };
+                    }
+                    ;
+
+                    List.Items(id).then(function (Item) {
+                        $scope.Web = Web.Properties;
+                        $scope.Web.List = List.Properties;
+
+                        Item.Fields.forEach(function (field, index, theFields) {
+                            theFields[index].ReadOnlyField = true;
+
+                            if (field.FieldTypeKind === 4 && angular.isDefined(field.Value)) {
+                                field.Value = new Date(field.Value);
+                            }
+                        });
+
+                        $scope.Web.List.Item = Item;
+                        $scope.Web.List.Item.Files = [];
+
+                        $ionicLoading.hide();
+
+                        if (id > 0) {
+                            var d = new Date();
+
+                            Item.GetAttachmentCollection().then(function (Attachments) {
+
+                                if (Array.isArray(Attachments.Attachment)) {
+
+                                    Attachments.Attachment.forEach(function (Attachment, index) {
+
+                                        if (Attachment.includes('bijlage_een.png')) {
+                                            $scope.bijlage.een.uri = Attachment.valueOf() + "?t=" + d.getTime();
+                                            $scope.bijlage.een.org = Attachment.valueOf();
+                                        }
+
+                                        if (Attachment.includes('bijlage_twee.png')) {
+                                            $scope.bijlage.twee.uri = Attachment.valueOf() + "?t=" + d.getTime();
+                                            $scope.bijlage.twee.org = Attachment.valueOf();
+                                        }
+
+                                        if (Attachment.includes('bijlage_drie.png')) {
+                                            $scope.bijlage.drie.uri = Attachment.valueOf() + "?t=" + d.getTime();
+                                            $scope.bijlage.drie.org = Attachment.valueOf();
+                                        }
+                                    });
+                                }
+                                else {
+                                    if (Attachments.Attachment.includes('bijlage_een.png')) {
+                                        $scope.bijlage.een.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
+                                        $scope.bijlage.een.org = Attachments.Attachment.valueOf();
+                                    }
+
+                                    if (Attachments.Attachment.includes('bijlage_twee.png')) {
+                                        $scope.bijlage.twee.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
+                                        $scope.bijlage.twee.org = Attachments.Attachment.valueOf();
+                                    }
+
+                                    if (Attachments.Attachment.includes('bijlage_drie.png')) {
+                                        $scope.bijlage.drie.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
+                                        $scope.bijlage.drie.org = Attachments.Attachment.valueOf();
+                                    }
+                                }
+                            });
+                        }
+                        /*
+                         Item.GetAttachmentCollection().then(function(Attachments){
+
+                         var d=new Date();
+
+                         if(Array.isArray(Attachments.Attachment)) {
+                         //$scope.Web.List.Item.Files = Attachments.Attachment;//[];
+                         Attachments.Attachment.forEach(function (Attachment, index) {
+                         //console.log(Attachment);
+                         $scope.Web.List.Item.Files.push(Attachment.valueOf()+"?t="+d.getTime());
+                         });
+                         }
+                         else {
+                         $scope.Web.List.Item.Files.push(Attachments.Attachment.valueOf()+"?t="+d.getTime());
+                         }
+                         });
+                         */
+
+                        /*
+                         Item.AttachmentFiles().then(function (Files) {
+
+                         var Web_ServerRelativeUrl = Web.Properties.ServerRelativeUrl;
+                         $ionicLoading.hide();
+
+                         $scope.Web.List.Item.Files = [];
+
+                         Files.forEach(function (file) {
+                         var File_ServerRelativeUrl = file.ServerRelativeUrl;
+                         File_ServerRelativeUrl = File_ServerRelativeUrl.replace(Web_ServerRelativeUrl, '');
+                         file.WebRelativeUrl = File_ServerRelativeUrl;
+                         $scope.Web.List.Item.Files.push(file);
+                         $ionicLoading.hide();
+                         });
+                         });
+                         */
+                    });
+                });
+            });
+        }
+        catch (error) {
+            $ionicLoading.hide();
+            console.log(error);
+        }
+    });
+})
+
+.controller('MeldingBewerkenCtrl', function($scope, $stateParams, $state, SharePoint, $cordovaCamera, $ionicLoading/*, $ionicAnalytics */) {
+
+    $scope.$on('$ionicView.enter', function () {
+        try {
+            //$cordovaProgress.showSimple(true);
+            $ionicLoading.show({
+                template: '<ion-spinner class="light"></ion-spinner><br/><span>Opmaken Melding Formulier...</span>',
+                noBackdrop: false,
+                duration: 5000,
+                hideOnStateChange: true
+            });
+
+            $scope.bijlage = {};
+            $scope.bijlage.een = {'bsixfour': undefined, 'uri': 'img/camera.png', 'org': undefined};
+            $scope.bijlage.twee = {'bsixfour': undefined, 'uri': 'img/camera.png', 'org': undefined};
+            $scope.bijlage.drie = {'bsixfour': undefined, 'uri': 'img/camera.png', 'org': undefined};
+
+            SharePoint.Web().then(function (Web) {
+                Web.Lists('Meldingen').then(function (List) {
+
+                    var id = -1;
+                    if (angular.isDefined($stateParams.ItemId)) {
+                        id = $stateParams.ItemId;
+                    }
+                    ;
 
                     List.Items(id).then(function (Item) {
                         $scope.Web = Web.Properties;
@@ -405,16 +428,16 @@ angular.module('rapporteren.controllers', [])
                         $scope.Web.List.Item = Item;
 
                         /*
-                        $scope.$watch( $scope.Web.List.Item, function (Item) {
-                            if (angular.isDefined(Item)) {
-                                $scope.isDataHasChanges = true;
-                            }
-                        });
-                        */
+                         $scope.$watch( $scope.Web.List.Item, function (Item) {
+                         if (angular.isDefined(Item)) {
+                         $scope.isDataHasChanges = true;
+                         }
+                         });
+                         */
 
                         $ionicLoading.hide();
 
-                        if(id > 0) {
+                        if (id > 0) {
 
                             var d = new Date();
 
@@ -461,19 +484,20 @@ angular.module('rapporteren.controllers', [])
                     });
                 });
             });
-        });
-    }
-    catch (error) {
-        $ionicLoading.hide();
-        console.log(error);
-    }
-
-    $scope.$on('$ionicView.leave', function(){
-
-        if($scope.isDataHasChanges){
-            alert('Titel : '+$scope.Web.List.Item.Title);
-            //$scope.Opslaan($scope.Web.List.Item);
         }
+        catch (error) {
+            $ionicLoading.hide();
+            console.log(error);
+        }
+    });
+
+
+    $scope.$on('$ionicView.leave', function () {
+
+        //if($scope.isDataHasChanges){
+        //alert('Titel : '+$scope.Web.List.Item.Title);
+        //$scope.Opslaan($scope.Web.List.Item);
+        //}
 
     });
 
@@ -481,7 +505,10 @@ angular.module('rapporteren.controllers', [])
         try {
             //$cordovaProgress.showSimple(true);
             $ionicLoading.show({
-                template: '<ion-spinner class="light"></ion-spinner><br/><span>Opslaan Melding...</span>'
+                template: '<ion-spinner class="light"></ion-spinner><br/><span>Opslaan Melding...</span>',
+                noBackdrop: false,
+                duration: 5000,
+                hideOnStateChange: true
             });
             Item.Save().then(function (Item) {
 
@@ -535,7 +562,7 @@ angular.module('rapporteren.controllers', [])
             $ionicLoading.hide();
             console.log(error);
         }
-    }
+    };
 
     $scope.takePhoto = function (name) {
         var options = {

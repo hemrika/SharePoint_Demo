@@ -1,5 +1,5 @@
 {
-  "name": "Rapporteren",
+  "name": "MakeMyCase",
   "app_id": "72e82a6c",
   "gulpStartupTasks": [
     "sass",

@@ -100,13 +100,13 @@
 }
 
 .Schaderegistratie.Middel {
-    border-color: rgb(247, 103, 31);
-    color: rgb(247, 103, 31);
+    border-color: #ffda4e;
+    color: #ffda4e;
 }
 
 .Schaderegistratie.Laag {
-    border-color: dodgerblue;
-    color: dodgerblue;
+    border-color: rgb(53, 173, 227);
+    color: rgb(53, 173, 227);
 }
 
 .Verbetervoorstel.Hoog {
@@ -115,13 +115,13 @@
 }
 
 .Verbetervoorstel.Middel {
-    border-color: rgb(247, 103, 31);
-    color: rgb(247, 103, 31);
+    border-color: #ffda4e;
+    color: #ffda4e;
 }
 
 .Verbetervoorstel.Laag {
-    border-color: dodgerblue;
-    color: dodgerblue;
+    border-color: rgb(53, 173, 227);
+    color: rgb(53, 173, 227);
 }
 
 
@@ -131,16 +131,17 @@
 }
 
 .Compliment.Middel {
-    border-color: rgb(247, 103, 31);
-    color: rgb(247, 103, 31);
+    border-color: #ffda4e;
+    color: #ffda4e;
 }
 
 .Compliment.Laag {
-    border-color: dodgerblue;
-    color: dodgerblue;
+    border-color: rgb(53, 173, 227);
+    color: rgb(53, 173, 227);
 }
 
 .blaud-camera-button {
+
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -161,6 +162,13 @@
     border-color: white;
     background-size: cover !important;
     background-position: center !important;
+}
+
+.blaud-camera-button:after {
+    padding-top: 100%;
+    /* 16:9 ratio */
+    display: block;
+    content: '';
 }
 
 /*
