@@ -8,42 +8,21 @@
     },
     "installed_plugins": {
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "Rapporteren"
+            "PACKAGE_NAME": "MakeMyCase"
         },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "Rapporteren"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "Rapporteren"
-        },
-        "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "Rapporteren"
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "MakeMyCase"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "Rapporteren"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "Rapporteren"
+            "PACKAGE_NAME": "MakeMyCase"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "Rapporteren"
+            "PACKAGE_NAME": "MakeMyCase"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "Rapporteren"
-        },
-        "cordova-plugin-file": {
-            "PACKAGE_NAME": "Rapporteren"
+            "PACKAGE_NAME": "MakeMyCase"
         },
         "cordova-plugin-app-preferences": {
-            "PACKAGE_NAME": "Rapporteren"
-        },
-        "org.pbernasconi.progressindicator": {
-            "PACKAGE_NAME": "Rapporteren"
-        },
-        "com.telerik.plugins.nativepagetransitions": {
-            "PACKAGE_NAME": "Rapporteren"
-        },
-        "cordova-plugin-globalization": {
             "PACKAGE_NAME": "MakeMyCase"
         }
     },
