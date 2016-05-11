@@ -1,11 +1,11 @@
 <ion-view id="Meldingen" cache-view="false" title="Melding Aanmaken" class="background">
     <ion-content class="has-header" padding="true">
         <div class="row row-center" >
-            <div class="col col-30 blaud-camera-button" ng-click="openModal(bijlage.een.uri)" ng-style="{'background-image':'url('+bijlage.een.uri+')' }" ><!--<img ng-src="{{bijlage.een.uri}}"  style="width:100%" class="blaud-camera-button" >--></button></div>
-            <div class="col col-30 blaud-camera-button" ng-click="openModal(bijlage.twee.uri)" ng-style="{'background-image':'url('+bijlage.twee.uri+')' }"><!--<img ng-src="{{bijlage.twee.uri}}"  style="width:100%" class="blaud-camera-button" >--></button></div>
-            <div class="col col-30 blaud-camera-button" ng-click="openModal(bijlage.drie.uri)" ng-style="{'background-image':'url('+bijlage.drie.uri+')' }"><!--<img ng-src="{{bijlage.drie.uri}}"  style="width:100%" class="blaud-camera-button" >--></button></div>
+            <div class="col col-30 blaud-camera-button" ng-click="takePhoto('een')" ng-style="{'background-image':'url('+bijlage.een.uri+')' }" ><!--<img ng-src="{{bijlage.een.uri}}"  style="width:100%" class="blaud-camera-button" >--></button></div>
+            <div class="col col-30 blaud-camera-button" ng-click="takePhoto('een')" ng-style="{'background-image':'url('+bijlage.twee.uri+')' }"><!--<img ng-src="{{bijlage.twee.uri}}"  style="width:100%" class="blaud-camera-button" >--></button></div>
+            <div class="col col-30 blaud-camera-button" ng-click="takePhoto('een')" ng-style="{'background-image':'url('+bijlage.drie.uri+')' }"><!--<img ng-src="{{bijlage.drie.uri}}"  style="width:100%" class="blaud-camera-button" >--></button></div>
         </div>
-        <form class="formulier" name="$parent.formulier" id="formulier" ng-submit="Opslaan(Web.List.Item)" validate>
+        <form class="formulier" name="$parent.formulier" id="$parent.formulier" ng-submit="Opslaan(Web.List.Item)" validate>
             <ion-list class="list-blaud">
               <ion-item ng-repeat="Field in Web.List.Item.Fields" class="item-blaud">
                   <div data-ng-include="'templates/Formulier.html'"></div>
