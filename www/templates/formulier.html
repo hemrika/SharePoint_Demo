@@ -1,46 +1,50 @@
 <div data-ng-switch='Field.FieldTypeKind' ng-hide="Field.Hidden">
     <!-- Integer -->
     <span data-ng-switch-when='1'>
-        <input class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+        <label class="item item-input item-stacked-label" >
             <div class="item item-divider BlaudOrangeBackground">
                 {{Field.Title}}
             </div>
             <!-- <span class="input-label BlaudBlue">{{Field.Title}}</span> -->
-            <input type="number" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" max="{{Field.MaximumValue}}" min="{{Field.MinimumValue}}" pattern="{{Field.ValidationFormula}}"></input>
+            <input type="number" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" max="{{Field.MaximumValue}}" min="{{Field.MinimumValue}}" pattern="{{Field.ValidationFormula}}" title="{{Field.ValidationMessage}}" >
         </label>
     </span>
     <!-- Text -->
     <span data-ng-switch-when='2'>
-        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+        <label class="item item-input item-stacked-label" >
             <div class="item item-divider BlaudOrangeBackground">
                 {{Field.Title}}
             </div>
             <!--<span class="input-label BlaudBlue">{{Field.Title}}</span> -->
-            <input type="text"  name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" maxlength="{{Field.MaxLength}}" pattern="{{Field.ValidationFormula}}"></input>
+            <input type="text"  name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" maxlength="{{Field.MaxLength}}" pattern="{{Field.ValidationFormula}}" title="{{Field.ValidationMessage}}" >
+            <div ng-show="formulier.$submitted || formulier.{{Field.InternalName}}.$touched">
+                <span ng-show="formulier.{{Field.InternalName}}.$error.required">{{Field.ValidationMessage}}</span>
+                <span ng-show="formulier.{{Field.InternalName}}.$error.pattern">{{Field.ValidationMessage}}s</span>
+            </div>
         </label>
     </span>
     <!-- Note -->
     <span data-ng-switch-when='3'>
-         <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+         <label class="item item-input item-stacked-label">
              <div class="item item-divider BlaudOrangeBackground">
                  {{Field.Title}}
              </div>
              <!-- <span class="input-label BlaudBlue">{{Field.Title}}</span> -->
-             <textarea name="{{Field.InternalName}}" rows="{{Field.NumberOfLines}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}"></textarea>
+             <textarea name="{{Field.InternalName}}" rows="{{Field.NumberOfLines}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" pattern="{{Field.ValidationFormula}}" title="{{Field.ValidationMessage}}" ></textarea>
          </label>
     </span>
     <!-- DateTime -->
     <span data-ng-switch-when='4'>
-        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+        <label class="item item-input item-stacked-label" >
             <div class="item item-divider BlaudOrangeBackground">
                 {{Field.Title}}
             </div>
-            <input type="date" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" pattern="{{Field.ValidationFormula}}"></input>
+            <input type="date" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" ><!-- pattern="{{Field.ValidationFormula}}" title="{{Field.ValidationMessage}}" >-->
         </label>
     </span>
     <!-- Choice -->
     <span data-ng-switch-when='6'>
-        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+        <label class="item item-input item-stacked-label" >
             <div class="item item-divider BlaudOrangeBackground">
                 {{Field.Title}}
             </div>
@@ -58,7 +62,7 @@
     </span>
     <!-- Boolean -->
     <span data-ng-switch-when='8'>
-        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+        <label class="item item-input item-stacked-label" >
             <div class="item item-divider BlaudOrangeBackground">
                 {{Field.Title}}
             </div>
@@ -69,22 +73,22 @@
     </span>
     <!-- Number -->
     <span data-ng-switch-when='9'>
-        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+        <label class="item item-input item-stacked-label" >
             <div class="item item-divider BlaudOrangeBackground">
                 {{Field.Title}}
             </div>
             <!-- <span class="input-label BlaudBlue">{{Field.Title}}</span> -->
-            <input type="number" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" max="{{Field.MaximumValue}}" min="{{Field.MinimumValue}}" pattern="{{Field.ValidationFormula}}"></input>
+            <input type="number" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" max="{{Field.MaximumValue}}" min="{{Field.MinimumValue}}" ><!-- pattern="{{Field.ValidationFormula}}" title="{{Field.ValidationMessage}}" >-->
         </label>
     </span>
     <!-- Currency -->
     <span data-ng-switch-when='10'>
-        <label class="item item-input item-stacked-label" style="background:white;border-width:0px;">
+        <label class="item item-input item-stacked-label" >
             <div class="item item-divider BlaudOrangeBackground">
                 {{Field.Title}}
             </div>
             <!-- <span class="input-label BlaudBlue">{{Field.Title}}</span> -->
-            <input type="number" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" max="{{Field.MaximumValue}}" min="{{Field.MinimumValue}}" pattern="{{Field.ValidationFormula}}"></input>
+            <input type="number" name="{{Field.InternalName}}" ng-readonly="Field.ReadOnlyField" ng-model="Field.Value" placeholder="{{Field.Description}}" ng-required="Field.Required" readonly="{{Field.ReadOnlyField}}" max="{{Field.MaximumValue}}" min="{{Field.MinimumValue}}" ><!-- pattern="{{Field.ValidationFormula}}" title="{{Field.ValidationMessage}}" >-->
         </label>
     </span>
     <!-- MultiChoice -->

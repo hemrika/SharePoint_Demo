@@ -49,79 +49,95 @@ angular.module('rapporteren.controllers', [])
 
 .controller('AanmeldenCtrl', function($scope, $state, SharePoint, $cordovaPreferences, $ionicLoading/*, $ionicAnalytics */) {
 
-  $scope.loginData = {};
+    $scope.Message = '';
+    $scope.loginData = {};
 
-    $cordovaPreferences.fetch('username', 'loginData')
-        .success(function(value) {
-            $scope.loginData.username = value;
-        })
-        .error(function(error) {
-            //alert("Error: " + error);
-        })
+    $scope.$on('$ionicView.enter', function () {
+        try {
+            $cordovaPreferences.fetch('username', 'loginData')
+                .success(function (value) {
+                    $scope.loginData.username = value;
+                })
+                .error(function (error) {
+                    //alert("Error: " + error);
+                })
 
-    $cordovaPreferences.fetch('password', 'loginData')
-        .success(function(value) {
-            $scope.loginData.password = value;
-        })
-        .error(function(error) {
-            //alert("Error: " + error);
-        })
+            $cordovaPreferences.fetch('password', 'loginData')
+                .success(function (value) {
+                    $scope.loginData.password = value;
+                })
+                .error(function (error) {
+                    //alert("Error: " + error);
+                })
+        }
+        catch (error) {
+            $ionicLoading.hide();
+            console.log(error);
+        }
+    });
 
-  $scope.Authenticate = function () {
+    $scope.Authenticate = function () {
 
-      try {
-          var domain = SharePoint.Security.Endpoint;
+        try {
+            var domain = SharePoint.Security.Endpoint;
 
-          //$cordovaProgress.showSimple(true);
-          $ionicLoading.show({
-              template: '<ion-spinner class="light"></ion-spinner><br/><span>Authenticeren...</span>',
-              noBackdrop: false,
-              duration: 10000,
-              hideOnStateChange: true
-          });
+            //$cordovaProgress.showSimple(true);
+            $ionicLoading.show({
+                template: '<ion-spinner class="light"></ion-spinner><br/><span>Authenticeren...</span>',
+                noBackdrop: false,
+                duration: 10000,
+                hideOnStateChange: true
+            });
 
-          $scope.MessageHide = true;
-          $scope.Message = 'Nothing yet...';
+            //$scope.MessageHide = true;
+            //$scope.Message = 'Nothing yet...';
 
-          SharePoint.Security.SetConfiguration($scope.loginData.username, $scope.loginData.password, domain).then(function () {
+            SharePoint.Security.SetConfiguration($scope.loginData.username, $scope.loginData.password, domain).then(function () {
 
-              SharePoint.Security.Authenticate().then(function () {
-                  $scope.Authenticated = (SharePoint.Security.CurrentUser !== null) ? true : false;
-                  //if(SharePoint.Security.Authenticated) {
-                  if ($scope.Authenticated) {
-                      $scope.Message = 'Succes, moving on...';
+                SharePoint.Security.Authenticate().then(function () {
+                    $scope.Authenticated = (SharePoint.Security.CurrentUser !== null) ? true : false;
+                    //if(SharePoint.Security.Authenticated) {
+                    if ($scope.Authenticated) {
+                        $scope.Message = 'Succes, moving on...';
 
-                      $cordovaPreferences.store('username', $scope.loginData.username, 'loginData')
-                          .success(function (un) {
-                              $cordovaPreferences.store('password', $scope.loginData.password, 'loginData')
-                                  .success(function (pw) {
-                                      //$cordovaProgress.hide();
-                                      $ionicLoading.hide();
-                                      //$state.go('Welkom', {}, {reload: true});
-                                  })
-                          })
-                          .error(function (error) {
-                              //$cordovaProgress.hide();
-                              $ionicLoading.hide();
-                              //alert("Error: " + error);
-                          })
-                      $state.go('Welkom', {}, {reload: true});
-                  }
-                  else {
-                      $ionicLoading.hide();
-                      $scope.Message = 'Aanmelden mislukt, controleer uw gegevens en probeer opnieuw.';
-                      $scope.MessageHide = false;
-                  }
-              });
+                        try {
 
-          });
-      }
-      catch (error) {
-          $ionicLoading.hide();
-          $state.go('Welkom', {}, {reload: true});
-          console.log(error);
-      }
-  };
+
+                            $cordovaPreferences.store('username', $scope.loginData.username, 'loginData')
+                                .success(function (un) {
+                                    $cordovaPreferences.store('password', $scope.loginData.password, 'loginData')
+                                        .success(function (pw) {
+                                            //$cordovaProgress.hide();
+                                            $ionicLoading.hide();
+                                            //$state.go('Welkom', {}, {reload: true});
+                                        })
+                                })
+                                .error(function (error) {
+                                    //$cordovaProgress.hide();
+                                    $ionicLoading.hide();
+                                    //alert("Error: " + error);
+                                })
+                            $state.go('Welkom', {}, {reload: true});
+                        }
+                        catch (error) {
+                            $ionicLoading.hide();
+                        }
+                    }
+                    else {
+                        $ionicLoading.hide();
+                        $scope.Message = 'Aanmelden mislukt, controleer uw gegevens en probeer opnieuw.';
+                        //$scope.MessageHide = false;
+                    }
+                });
+
+            });
+        }
+        catch (error) {
+            $ionicLoading.hide();
+            $scope.Message = error;
+            //$state.go('Welkom', {}, {reload: true});
+        }
+    };
 })
 
 .controller('MeldingenCtrl', function($scope, $state, SharePoint, $ionicLoading, $interval/*, $ionicAnalytics */) {
@@ -305,7 +321,7 @@ angular.module('rapporteren.controllers', [])
 
                             Item.GetAttachmentCollection().then(function (Attachments) {
 
-                                if (Array.isArray(Attachments.Attachment)) {
+                                if (angular.isDefined(Attachments.Attachment) && Array.isArray(Attachments.Attachment)) {
 
                                     Attachments.Attachment.forEach(function (Attachment, index) {
 
@@ -326,19 +342,21 @@ angular.module('rapporteren.controllers', [])
                                     });
                                 }
                                 else {
-                                    if (Attachments.Attachment.includes('bijlage_een.png')) {
-                                        $scope.bijlage.een.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
-                                        $scope.bijlage.een.org = Attachments.Attachment.valueOf();
-                                    }
+                                    if (angular.isDefined(Attachments.Attachment)) {
+                                        if (Attachments.Attachment.includes('bijlage_een.png')) {
+                                            $scope.bijlage.een.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
+                                            $scope.bijlage.een.org = Attachments.Attachment.valueOf();
+                                        }
 
-                                    if (Attachments.Attachment.includes('bijlage_twee.png')) {
-                                        $scope.bijlage.twee.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
-                                        $scope.bijlage.twee.org = Attachments.Attachment.valueOf();
-                                    }
+                                        if (Attachments.Attachment.includes('bijlage_twee.png')) {
+                                            $scope.bijlage.twee.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
+                                            $scope.bijlage.twee.org = Attachments.Attachment.valueOf();
+                                        }
 
-                                    if (Attachments.Attachment.includes('bijlage_drie.png')) {
-                                        $scope.bijlage.drie.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
-                                        $scope.bijlage.drie.org = Attachments.Attachment.valueOf();
+                                        if (Attachments.Attachment.includes('bijlage_drie.png')) {
+                                            $scope.bijlage.drie.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
+                                            $scope.bijlage.drie.org = Attachments.Attachment.valueOf();
+                                        }
                                     }
                                 }
                             });
@@ -443,7 +461,7 @@ angular.module('rapporteren.controllers', [])
 
                             Item.GetAttachmentCollection().then(function (Attachments) {
 
-                                if (Array.isArray(Attachments.Attachment)) {
+                                if (angular.isDefined(Attachments.Attachment) && Array.isArray(Attachments.Attachment)) {
 
                                     Attachments.Attachment.forEach(function (Attachment, index) {
 
@@ -464,19 +482,21 @@ angular.module('rapporteren.controllers', [])
                                     });
                                 }
                                 else {
-                                    if (Attachments.Attachment.includes('bijlage_een.png')) {
-                                        $scope.bijlage.een.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
-                                        $scope.bijlage.een.org = Attachments.Attachment.valueOf();
-                                    }
+                                    if (angular.isDefined(Attachments.Attachment)) {
+                                        if (Attachments.Attachment.includes('bijlage_een.png')) {
+                                            $scope.bijlage.een.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
+                                            $scope.bijlage.een.org = Attachments.Attachment.valueOf();
+                                        }
 
-                                    if (Attachments.Attachment.includes('bijlage_twee.png')) {
-                                        $scope.bijlage.twee.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
-                                        $scope.bijlage.twee.org = Attachments.Attachment.valueOf();
-                                    }
+                                        if (Attachments.Attachment.includes('bijlage_twee.png')) {
+                                            $scope.bijlage.twee.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
+                                            $scope.bijlage.twee.org = Attachments.Attachment.valueOf();
+                                        }
 
-                                    if (Attachments.Attachment.includes('bijlage_drie.png')) {
-                                        $scope.bijlage.drie.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
-                                        $scope.bijlage.drie.org = Attachments.Attachment.valueOf();
+                                        if (Attachments.Attachment.includes('bijlage_drie.png')) {
+                                            $scope.bijlage.drie.uri = Attachments.Attachment.valueOf() + "?t=" + d.getTime();
+                                            $scope.bijlage.drie.org = Attachments.Attachment.valueOf();
+                                        }
                                     }
                                 }
                             });
@@ -510,51 +530,55 @@ angular.module('rapporteren.controllers', [])
                 duration: 5000,
                 hideOnStateChange: true
             });
-            Item.Save().then(function (Item) {
+            if ($scope.formulier.$valid) {
+                //Do something
 
-                if ($scope.bijlage.een.bsixfour != undefined) {
-                    if (angular.isDefined($scope.bijlage.een.org)) {
-                        Item.DeleteFile($scope.bijlage.een.org).then(function () {
+                Item.Save().then(function (Item) {
+
+                    if ($scope.bijlage.een.bsixfour != undefined) {
+                        if (angular.isDefined($scope.bijlage.een.org)) {
+                            Item.DeleteFile($scope.bijlage.een.org).then(function () {
+                                Item.AddFile('bijlage_een.png', $scope.bijlage.een.bsixfour).then(function (file) {
+                                });
+                            });
+                        }
+                        else {
                             Item.AddFile('bijlage_een.png', $scope.bijlage.een.bsixfour).then(function (file) {
                             });
-                        });
+                        }
                     }
-                    else {
-                        Item.AddFile('bijlage_een.png', $scope.bijlage.een.bsixfour).then(function (file) {
-                        });
-                    }
-                }
 
-                if ($scope.bijlage.twee.bsixfour != undefined) {
-                    if (angular.isDefined($scope.bijlage.twee.org)) {
-                        Item.DeleteFile($scope.bijlage.twee.org).then(function () {
+                    if ($scope.bijlage.twee.bsixfour != undefined) {
+                        if (angular.isDefined($scope.bijlage.twee.org)) {
+                            Item.DeleteFile($scope.bijlage.twee.org).then(function () {
+                                Item.AddFile('bijlage_twee.png', $scope.bijlage.twee.bsixfour).then(function (file) {
+                                });
+                            });
+                        }
+                        else {
                             Item.AddFile('bijlage_twee.png', $scope.bijlage.twee.bsixfour).then(function (file) {
                             });
-                        });
+                        }
                     }
-                    else {
-                        Item.AddFile('bijlage_twee.png', $scope.bijlage.twee.bsixfour).then(function (file) {
-                        });
-                    }
-                }
 
-                if ($scope.bijlage.drie.bsixfour != undefined) {
-                    if (angular.isDefined($scope.bijlage.drie.org)) {
-                        Item.DeleteFile($scope.bijlage.drie.org).then(function () {
+                    if ($scope.bijlage.drie.bsixfour != undefined) {
+                        if (angular.isDefined($scope.bijlage.drie.org)) {
+                            Item.DeleteFile($scope.bijlage.drie.org).then(function () {
+                                Item.AddFile('bijlage_drie.png', $scope.bijlage.drie.bsixfour).then(function (file) {
+                                });
+                            });
+                        }
+                        else {
                             Item.AddFile('bijlage_drie.png', $scope.bijlage.drie.bsixfour).then(function (file) {
                             });
-                        });
+                        }
                     }
-                    else {
-                        Item.AddFile('bijlage_drie.png', $scope.bijlage.drie.bsixfour).then(function (file) {
-                        });
-                    }
-                }
 
-                $scope.Web.List.Item = Item;
-                $ionicLoading.hide();
-                $state.go('Meldingen', {}, {reload: true});
-            });
+                    $scope.Web.List.Item = Item;
+                    $ionicLoading.hide();
+                    $state.go('Meldingen', {}, {reload: true});
+                });
+            }
 
             $ionicLoading.hide();
         }

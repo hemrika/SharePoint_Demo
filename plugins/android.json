@@ -4,48 +4,61 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"io.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
     },
     "installed_plugins": {
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.blaud.rapporteren"
+        },
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.blaud.rapporteren"
-        },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.blaud.rapporteren"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.blaud.rapporteren"
-        },
-        "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "com.blaud.rapporteren"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.blaud.rapporteren"
-        },
-        "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.blaud.rapporteren"
         },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.blaud.rapporteren"
         },
-        "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.blaud.rapporteren"
-        },
-        "cordova-plugin-file": {
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.blaud.rapporteren"
         },
         "cordova-plugin-app-preferences": {
             "PACKAGE_NAME": "com.blaud.rapporteren"
-        },
-        "org.pbernasconi.progressindicator": {
-            "PACKAGE_NAME": "com.blaud.rapporteren"
-        },
-        "com.telerik.plugins.nativepagetransitions": {
-            "PACKAGE_NAME": "com.blaud.rapporteren"
-        },
-        "cordova-plugin-globalization": {
-            "PACKAGE_NAME": "com.blaud.rapporteren"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.blaud.rapporteren"
+        }
+    }
 }

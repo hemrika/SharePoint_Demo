@@ -76,6 +76,29 @@
     font-weight: bold;
     text-transform: uppercase;
 }
+
+/* Formulier */
+
+.formulier input.ng-invalid.ng-touched  {
+    background-color: rgba(154,212,239, 0.3);
+    -webkit-transition: background-color .5s linear;
+    transition: background-color .5s linear;
+}
+
+.formulier input.ng-valid {
+    background-color: #ffffff;
+}
+
+.formulier textarea.ng-invalid.ng-touched {
+    background-color: rgba(154,212,239, 0.3);
+    -webkit-transition: background-color .5s linear;
+    transition: background-color .5s linear;
+}
+
+.formulier textarea.ng-valid {
+    background-color: #ffffff;
+}
+
 .Compliment:before {
     content: "\f087";
     font-family: FontAwesome;
@@ -266,6 +289,8 @@
 
 .item-input {
     padding: 0px !important;
+    background:white;
+    border-width:0px;
 }
 
 .input-label {

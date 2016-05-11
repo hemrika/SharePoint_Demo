@@ -38,4 +38,4 @@ angular.module('rapporteren', ['ionic', /*'ionic.service.core', 'ionic.service.a
 
     SharePoint.EndPoint("duwboot.sharepoint.com/sites/BLAUD/Demo");
   });
-})
+});

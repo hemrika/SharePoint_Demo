@@ -5,13 +5,13 @@
             <div class="col col-30 blaud-camera-button" ng-click="takePhoto('twee')" ng-style="{'background-image':'url('+bijlage.twee.uri+')' }"><!--<img ng-src="{{bijlage.twee.uri}}"  style="width:100%" class="blaud-camera-button" >--></button></div>
             <div class="col col-30 blaud-camera-button" ng-click="takePhoto('drie')" ng-style="{'background-image':'url('+bijlage.drie.uri+')' }"><!--<img ng-src="{{bijlage.drie.uri}}"  style="width:100%" class="blaud-camera-button" >--></button></div>
         </div>
-        <form style="" class="list">
+        <form class="formulier" name="$parent.formulier" id="$parent.formulier" ng-submit="Opslaan(Web.List.Item)" validate>
             <ion-list class="list-blaud">
                 <ion-item ng-repeat="Field in Web.List.Item.Fields" class="item-blaud">
                     <div data-ng-include="'templates/Formulier.html'"></div>
                 </ion-item>
             </ion-list>
-            <button class="button button-blaud  button-block icon-right fa fa-arrow-circle-right fa-lg" data-ng-click="Opslaan(Web.List.Item)" id="melding_opslaan">Opslaan Melding</button>
+            <button type="submit" class="button button-blaud  button-block icon-right fa fa-arrow-circle-right fa-lg" id="melding_opslaan">Opslaan Melding</button>
         </form>
     </ion-content>
 </ion-view>
