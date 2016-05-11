@@ -79,21 +79,58 @@
 
 /* Formulier */
 
+.formulier input.ng-invalid.ng-touched::-webkit-input-placeholder,
+.formulier.ng-submitted input.ng-untouched.ng-invalid::-webkit-input-placeholder,
+.formulier textarea.ng-invalid.ng-touched::-webkit-input-placeholder,
+.formulier.ng-submitted textarea.ng-untouched.ng-invalid::-webkit-input-placeholder {
+    color: rgb(247, 103, 31);
+    -webkit-transition: color .5s linear;
+    transition: color .5s linear;
+}
+
+.formulier input.ng-invalid.ng-touched:-moz-placeholder,
+.formulier.ng-submitted input.ng-untouched.ng-invalid:-moz-placeholder,
+.formulier textarea.ng-invalid.ng-touched:-moz-placeholder,
+.formulier.ng-submitted textarea.ng-untouched.ng-invalid:-moz-placeholder {
+    color: rgb(247, 103, 31);
+    -webkit-transition: color .5s linear;
+    transition: color .5s linear;
+
+}
+.formulier input.ng-invalid.ng-touched::-moz-placeholder,
+.formulier.ng-submitted input.ng-untouched.ng-invalid::-moz-placeholder,
+.formulier textarea.ng-invalid.ng-touched::-moz-placeholder,
+.formulier.ng-submitted textarea.ng-untouched.ng-invalid::-moz-placeholder {
+    color: rgb(247, 103, 31);
+    -webkit-transition: color .5s linear;
+    transition: color .5s linear;
+}
+.formulier input.ng-invalid.ng-touched:-ms-input-placeholder,
+.formulier.ng-submitted input.ng-untouched.ng-invalid:-ms-input-placeholder,
+.formulier textarea.ng-invalid.ng-touched:-ms-input-placeholder,
+.formulier.ng-submitted textarea.ng-untouched.ng-invalid:-ms-input-placeholder {
+    color: rgb(247, 103, 31);
+    -webkit-transition: color .5s linear;
+    transition: color .5s linear;
+}
+/*
 .formulier input.ng-invalid.ng-touched  {
     background-color: rgba(154,212,239, 0.3);
     -webkit-transition: background-color .5s linear;
     transition: background-color .5s linear;
 }
-
+*/
 .formulier input.ng-valid {
     background-color: #ffffff;
 }
 
+/*
 .formulier textarea.ng-invalid.ng-touched {
     background-color: rgba(154,212,239, 0.3);
     -webkit-transition: background-color .5s linear;
     transition: background-color .5s linear;
 }
+*/
 
 .formulier textarea.ng-valid {
     background-color: #ffffff;
